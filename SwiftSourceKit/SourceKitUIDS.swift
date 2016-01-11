@@ -27,6 +27,7 @@ public let KeyEnableSyntaxMap = sourcekitd_uid_get_from_cstr("key.enablesyntaxma
 public let KeyEnableSubStructure = sourcekitd_uid_get_from_cstr("key.enablesubstructure")
 public let KeySyntacticOnly = sourcekitd_uid_get_from_cstr("key.syntactic_only")
 public let KeyLine = sourcekitd_uid_get_from_cstr("key.line")
+public let KeyColumn = sourcekitd_uid_get_from_cstr("key.column")
 public let KeyFormatOptions = sourcekitd_uid_get_from_cstr("key.editor.format.options")
 public let KeyCodeCompleteOptions =
     sourcekitd_uid_get_from_cstr("key.codecomplete.options")
@@ -40,6 +41,8 @@ public let KeyNotification = sourcekitd_uid_get_from_cstr("key.notification")
 public let KeyPopular = sourcekitd_uid_get_from_cstr("key.popular")
 public let KeyUnpopular = sourcekitd_uid_get_from_cstr("key.unpopular")
 public let KeyTypeInterface = sourcekitd_uid_get_from_cstr("key.typeinterface")
+public let KeySeverity = sourcekitd_uid_get_from_cstr("key.severity")
+public let KeyDescription = sourcekitd_uid_get_from_cstr("key.description")
 
 public let RequestIndex = sourcekitd_uid_get_from_cstr("source.request.indexsource")
 public let RequestCodeComplete = sourcekitd_uid_get_from_cstr("source.request.codecomplete")
@@ -69,3 +72,10 @@ public let SourceLangSwiftIdentifier = sourcekitd_uid_get_from_cstr("source.lang
 public let SourceLangSwiftNumber = sourcekitd_uid_get_from_cstr("source.lang.swift.syntaxtype.number")
 public let SourceLangSwiftString = sourcekitd_uid_get_from_cstr("source.lang.swift.syntaxtype.string")
 public let SourceLangSwiftComment = sourcekitd_uid_get_from_cstr("source.lang.swift.syntaxtype.comment")
+
+public let SourceDiagnosticSeverityError = sourcekitd_uid_get_from_cstr("source.diagnostic.severity.error")
+public let SourceDiagnosticSeverityWarning = sourcekitd_uid_get_from_cstr("source.diagnostic.severity.warning")
+public let SourceDiagnosticSeverityNote = sourcekitd_uid_get_from_cstr("source.diagnostic.severity.note")
+
+public let SourceDiagnosticStageSwiftParse = sourcekitd_uid_get_from_cstr("source.diagnostic.stage.swift.parse")
+public let SourceDiagnosticStageSwiftSema = sourcekitd_uid_get_from_cstr("source.diagnostic.stage.swift.sema")
