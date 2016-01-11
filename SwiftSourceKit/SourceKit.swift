@@ -5,14 +5,14 @@
 
 import sourcekitd
 
-protocol SourceKitDelegate: class {
+public protocol SourceKitDelegate: class {
     func sourceKitDidReceiveError(error: ResponseError)
     func sourceKitDidReceiveNotification(response: Response)
 }
 
 public final class SourceKit {
     static public var sharedInstance = SourceKit()
-    weak var delegate: SourceKitDelegate?
+    public weak var delegate: SourceKitDelegate?
     
     private init() {
         sourcekitd_initialize()

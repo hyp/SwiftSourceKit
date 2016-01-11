@@ -6,7 +6,7 @@
 import Foundation
 import sourcekitd
 
-enum RequestValue {
+public enum RequestValue {
     case UID(sourcekitd_uid_t)
     case Str(String)
     case Integer(Int)
@@ -37,10 +37,10 @@ extension RequestValue {
     }
 }
     
-class Request {
+public class Request {
     private let request: sourcekitd_object_t
     
-    init(dictionary: [sourcekitd_uid_t : RequestValue]) {
+    public init(dictionary: [sourcekitd_uid_t : RequestValue]) {
         request = sourcekitd_request_dictionary_create(nil, nil, 0)
         for (key, value) in dictionary {
             let object = value.sourcekitObject
@@ -53,14 +53,14 @@ class Request {
         sourcekitd_request_release(request)
     }
     
-    var description: String {
+    public var description: String {
         guard let str = String.fromCString(sourcekitd_request_description_copy(request)) else {
             return ""
         }
         return str
     }
     
-    func sendAndWaitForResponse() throws -> Response {
+    public func sendAndWaitForResponse() throws -> Response {
         let response = sourcekitd_send_request_sync(request)
         if sourcekitd_response_is_error(response) {
             throw ResponseError(response: response)

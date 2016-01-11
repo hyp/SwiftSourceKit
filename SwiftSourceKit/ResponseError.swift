@@ -5,7 +5,7 @@
 
 import sourcekitd
 
-class ResponseError: ErrorType {
+public final class ResponseError: ErrorType {
     private let response: sourcekitd_response_t
     
     init(response: sourcekitd_response_t) {
@@ -16,14 +16,14 @@ class ResponseError: ErrorType {
         sourcekitd_response_dispose(response)
     }
     
-    var description: String {
+    public var description: String {
         guard let str = String.fromCString(sourcekitd_response_error_get_description(response)) else {
             return ""
         }
         return str
     }
     
-    enum ErrorKind {
+    public enum ErrorKind {
         case ConnectionInterrupted
         case RequestInvalid
         case RequestFailed
@@ -31,7 +31,7 @@ class ResponseError: ErrorType {
         case UnknownError
     }
     
-    var errorKind: ErrorKind {
+    public var errorKind: ErrorKind {
         let kind = sourcekitd_response_error_get_kind(response)
         if kind == SOURCEKITD_ERROR_CONNECTION_INTERRUPTED { return .ConnectionInterrupted }
         else if kind == SOURCEKITD_ERROR_REQUEST_INVALID { return .RequestInvalid }

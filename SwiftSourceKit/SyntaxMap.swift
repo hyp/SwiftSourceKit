@@ -7,7 +7,7 @@ import sourcekitd
 
 // Represents an element of a syntax map.
 public struct SyntaxToken {
-    enum Kind {
+    public enum Kind {
         case Keyword
         case Identifier
         case Number
@@ -15,9 +15,9 @@ public struct SyntaxToken {
         case Comment
         case Other
     }
-    let kind: Kind
-    let offset: Int
-    let length: Int
+    public let kind: Kind
+    public let offset: Int
+    public let length: Int
 }
 
 public struct SyntaxMapGenerator: GeneratorType {
@@ -45,19 +45,19 @@ public struct SyntaxMapGenerator: GeneratorType {
     }
 }
 
-enum SyntaxMapError: ErrorType {
+public enum SyntaxMapError: ErrorType {
     case InvalidVariant
 }
 
-struct SyntaxMap: SequenceType {
+public struct SyntaxMap: SequenceType {
     private let variant: Variant
     
-    init(variant: Variant) throws {
+    public init(variant: Variant) throws {
         guard case Variant.VariantType.Array = variant.type else { throw SyntaxMapError.InvalidVariant }
         self.variant = variant
     }
     
-    func generate() -> SyntaxMapGenerator {
+    public func generate() -> SyntaxMapGenerator {
         return SyntaxMapGenerator(array: variant.variant)
     }
 }

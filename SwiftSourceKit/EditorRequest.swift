@@ -5,8 +5,8 @@
 
 import sourcekitd
 
-final class EditorOpenRequest: Request {
-    init(filename: String, sourceText: String, enableSyntaxMap: Bool = true, enableSubStructure: Bool = false) {
+public final class EditorOpenRequest: Request {
+    public init(filename: String, sourceText: String, enableSyntaxMap: Bool = true, enableSubStructure: Bool = false) {
         super.init(dictionary: [
             KeyRequest: .UID(RequestEditorOpen),
             KeyName: .Str(filename),

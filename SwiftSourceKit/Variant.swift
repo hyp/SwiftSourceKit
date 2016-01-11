@@ -6,10 +6,10 @@
 import Foundation
 import sourcekitd
 
-struct Variant {
+public struct Variant {
     let variant: sourcekitd_variant_t
     
-    enum VariantType {
+    public enum VariantType {
         case Null
         case Dictionary
         case Array
@@ -19,7 +19,7 @@ struct Variant {
         case Boolean
     }
     
-    var type: VariantType {
+    public var type: VariantType {
         switch sourcekitd_variant_get_type(variant) {
         case SOURCEKITD_VARIANT_TYPE_NULL: return .Null
         case SOURCEKITD_VARIANT_TYPE_DICTIONARY: return .Dictionary
@@ -37,22 +37,22 @@ struct Variant {
         self.variant = variant
     }
     
-    func dictionaryGetUID(key: sourcekitd_uid_t) -> sourcekitd_uid_t {
+    public func dictionaryGetUID(key: sourcekitd_uid_t) -> sourcekitd_uid_t {
         return sourcekitd_variant_dictionary_get_uid(variant, key)
     }
     
-    func dictionaryGetString(key: sourcekitd_uid_t) -> String {
+    public func dictionaryGetString(key: sourcekitd_uid_t) -> String {
         guard let str = String.fromCString(sourcekitd_variant_dictionary_get_string(variant, key)) else {
             return ""
         }
         return str
     }
     
-    func dictionaryGetValue(key: sourcekitd_uid_t) -> Variant {
+    public func dictionaryGetValue(key: sourcekitd_uid_t) -> Variant {
         return Variant(variant: sourcekitd_variant_dictionary_get_value(variant, key))
     }
     
-    var description: String {
+    public var description: String {
         guard let str = String.fromCString(sourcekitd_variant_description_copy(variant)) else {
             return ""
         }
