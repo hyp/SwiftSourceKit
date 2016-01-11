@@ -40,11 +40,16 @@ extension RequestValue {
 public class Request {
     private let request: sourcekitd_object_t
     
-    public init(dictionary: [sourcekitd_uid_t : RequestValue]) {
+    public init(dictionary: [sourcekitd_uid_t : RequestValue], compilerArgs: [String] = []) {
         request = sourcekitd_request_dictionary_create(nil, nil, 0)
         for (key, value) in dictionary {
             let object = value.sourcekitObject
             sourcekitd_request_dictionary_set_value(request, key, object)
+            sourcekitd_request_release(object)
+        }
+        if !compilerArgs.isEmpty {
+            let object = RequestValue.Array(compilerArgs.map { RequestValue.Str($0) }).sourcekitObject
+            sourcekitd_request_dictionary_set_value(request, KeyCompilerArgs, object)
             sourcekitd_request_release(object)
         }
     }

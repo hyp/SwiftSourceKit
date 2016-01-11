@@ -92,8 +92,7 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
         defer {
             semaResponseHandler = nil
         }
-        let request = Request(dictionary: [ KeyRequest: .UID(RequestEditorOpen), KeyName: .Str("/Users/alex/repl.swift"), KeyCompilerArgs: .Array([.Str("/Users/alex/repl.swift")]), KeySourceText: .Str("let a = 22; a = Int(0)\n let")
-                ])
+        let request = EditorOpenRequest(filename: "/Users/alex/repl.swift", sourceText: "let a = 22; a = Int(0)\n let", compilerArgs: ["/Users/alex/repl.swift"])
         do {
             _ = try request.sendAndWaitForResponse()
         } catch _ {
