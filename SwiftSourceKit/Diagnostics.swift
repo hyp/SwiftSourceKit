@@ -24,6 +24,15 @@ public struct Diagnostic {
     public let column: Int
     public let filepath: String
     public let description: String
+
+    public init(kind: Kind, stage: StageKind, line: Int, column: Int, filepath: String, description: String) {
+        self.kind = kind
+        self.stage = stage
+        self.line = line
+        self.column = column
+        self.filepath = filepath
+        self.description = description
+    }
 }
 
 public struct DiagnosticGenerator: GeneratorType {
