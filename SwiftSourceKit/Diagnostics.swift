@@ -68,12 +68,12 @@ public enum DiagnosticsError: ErrorType {
     case InvalidVariant
 }
 
-public struct Diagnostics: SequenceType {
+public class Diagnostics: SequenceType {
     private let variant: Variant
     
     public init(variant: Variant) throws {
-        guard case Variant.VariantType.Array = variant.type else { throw DiagnosticsError.InvalidVariant }
         self.variant = variant
+        guard case Variant.VariantType.Array = variant.type else { throw DiagnosticsError.InvalidVariant }
     }
     
     public func generate() -> DiagnosticGenerator {
