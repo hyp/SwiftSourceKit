@@ -33,10 +33,13 @@ public final class ResponseError: ErrorType {
     
     public var errorKind: ErrorKind {
         let kind = sourcekitd_response_error_get_kind(response)
-        if kind == SOURCEKITD_ERROR_CONNECTION_INTERRUPTED { return .ConnectionInterrupted }
-        else if kind == SOURCEKITD_ERROR_REQUEST_INVALID { return .RequestInvalid }
-        else if kind == SOURCEKITD_ERROR_REQUEST_FAILED { return .RequestFailed }
-        else if kind == SOURCEKITD_ERROR_REQUEST_CANCELLED { return .RequestCancelled }
-        return .UnknownError
+        switch kind {
+        case SOURCEKITD_ERROR_CONNECTION_INTERRUPTED: return .ConnectionInterrupted
+        case SOURCEKITD_ERROR_REQUEST_INVALID: return .RequestInvalid
+        case SOURCEKITD_ERROR_REQUEST_FAILED: return .RequestFailed
+        case SOURCEKITD_ERROR_REQUEST_CANCELLED: return .RequestCancelled
+        default:
+            return .UnknownError
+        }
     }
 }
