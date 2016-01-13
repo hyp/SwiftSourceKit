@@ -48,20 +48,20 @@
 
 /* Begin PBXFileReference section */
 		FA106D731C42644000E01181 /* SwiftSourceKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftSourceKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA106D761C42644000E01181 /* SwiftSourceKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftSourceKit.h; sourceTree = "<group>"; };
+		FA106D761C42644000E01181 /* SwiftSourceKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftSourceKit.h; sourceTree = "<group>"; usesTabs = 0; };
 		FA106D781C42644000E01181 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA106D7D1C42644000E01181 /* SwiftSourceKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftSourceKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA106D821C42644000E01181 /* SwiftSourceKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftSourceKitTests.swift; sourceTree = "<group>"; };
+		FA106D821C42644000E01181 /* SwiftSourceKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftSourceKitTests.swift; sourceTree = "<group>"; usesTabs = 0; };
 		FA106D841C42644000E01181 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FA106D9D1C42686E00E01181 /* SourceKitUIDS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceKitUIDS.swift; sourceTree = "<group>"; };
-		FA106D9F1C4269E400E01181 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
-		FA106DA11C4272BA00E01181 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
-		FA106DA31C4276ED00E01181 /* SourceKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceKit.swift; sourceTree = "<group>"; };
-		FA106DA51C42787F00E01181 /* EditorRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorRequest.swift; sourceTree = "<group>"; };
-		FA13D0721C43B743005F0CA7 /* SyntaxMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxMap.swift; sourceTree = "<group>"; };
-		FA2567491C444A1A000EEB38 /* Diagnostics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Diagnostics.swift; sourceTree = "<group>"; };
-		FA35B99C1C428E3E00BAF98E /* ResponseError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; };
-		FA622FD51C432209001E8CFF /* Variant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variant.swift; sourceTree = "<group>"; };
+		FA106D9D1C42686E00E01181 /* SourceKitUIDS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceKitUIDS.swift; sourceTree = "<group>"; usesTabs = 0; };
+		FA106D9F1C4269E400E01181 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; usesTabs = 0; };
+		FA106DA11C4272BA00E01181 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; usesTabs = 0; };
+		FA106DA31C4276ED00E01181 /* SourceKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceKit.swift; sourceTree = "<group>"; usesTabs = 0; };
+		FA106DA51C42787F00E01181 /* EditorRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorRequest.swift; sourceTree = "<group>"; usesTabs = 0; };
+		FA13D0721C43B743005F0CA7 /* SyntaxMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxMap.swift; sourceTree = "<group>"; usesTabs = 0; };
+		FA2567491C444A1A000EEB38 /* Diagnostics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Diagnostics.swift; sourceTree = "<group>"; usesTabs = 0; };
+		FA35B99C1C428E3E00BAF98E /* ResponseError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; usesTabs = 0; };
+		FA622FD51C432209001E8CFF /* Variant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variant.swift; sourceTree = "<group>"; usesTabs = 0; };
 		FAFDC2561C43AE1F009575FA /* sourcekitd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sourcekitd.framework; path = "../build/Ninja-DebugAssert/swift-macosx-x86_64/lib/sourcekitd.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 

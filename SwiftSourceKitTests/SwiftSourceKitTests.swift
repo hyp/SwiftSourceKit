@@ -7,22 +7,22 @@ import XCTest
 @testable import SwiftSourceKit
 
 class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
-    
+
     override func setUp() {
         super.setUp()
         SourceKit.sharedInstance.delegate = self
     }
-    
+
     func sourceKitDidReceiveError(error: ResponseError) {
         XCTFail()
     }
-    
+
     var semaResponseHandler: ((Response) -> ())?
-    
+
     func sourceKitDidReceiveNotification(response: Response) {
         let value = response.value
-        let kind = value.dictionaryGetUID(KeyNotification)
-        let name = value.dictionaryGetString(KeyName)
+        let kind: COpaquePointer = value[KeyNotification]
+        let name: String = value[KeyName]
         if kind == NotificationDocumentUpdate {
             print("document update \(name)")
             let request = Request(dictionary: [
@@ -38,7 +38,7 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
             }
         }
     }
-    
+
     func testEditorOpen() {
         let request = Request.createEditorOpenRequest("test.swift", sourceText: "let a = 22", enableSyntaxMap: true)
         do {
@@ -54,14 +54,14 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
             XCTFail()
         }
     }
-    
+
     func testSyntaxMap() {
         let request = Request.createEditorOpenRequest("test.swift", sourceText: "let a = Int(55); let b = \"a\"\n//comment", enableSyntaxMap: true)
         do {
             let response = try request.sendAndWaitForResponse()
             let value = response.value
             print(value.type)
-            let syntaxmap = value.dictionaryGetValue(KeySyntaxMap)
+            let syntaxmap: Variant = value[KeySyntaxMap]
             XCTAssertEqual(syntaxmap.type, Variant.VariantType.Array)
             let tokens = Array(try! SyntaxMap(variant: syntaxmap))
             let expectedTokens = [ SyntaxToken(kind: .Keyword, offset: 0, length: 3), SyntaxToken(kind: .Identifier, offset: 4, length: 1), SyntaxToken(kind: .Identifier, offset: 8, length: 3), SyntaxToken(kind: .Number, offset: 12, length: 2), SyntaxToken(kind: .Keyword, offset: 17, length: 3), SyntaxToken(kind: .Identifier, offset: 21, length: 1), SyntaxToken(kind: .String, offset: 25, length: 3), SyntaxToken(kind: .Comment, offset: 29, length: 9) ]
@@ -75,7 +75,7 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
             XCTFail()
         }
     }
-    
+
     func testResponseError() {
         let request = Request(dictionary: [ KeyRequest: .UID(RequestEditorOpen) ])
         do {
@@ -88,7 +88,7 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
             XCTFail()
         }
     }
-    
+
     func testSemaResponse() {
         var semaResponse: Response?
         semaResponseHandler = {
@@ -110,14 +110,14 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
         while loopUntil.timeIntervalSinceNow > 0 {
             NSRunLoop.currentRunLoop().runMode(NSDefaultRunLoopMode, beforeDate: loopUntil)
         }
-        
+
         guard let response = semaResponse else {
             XCTFail()
             return
         }
         XCTAssertEqual(response.description, "{\n  key.annotations: [\n    {\n      key.kind: source.lang.swift.ref.var.global,\n      key.offset: 12,\n      key.length: 1\n    },\n    {\n      key.kind: source.lang.swift.ref.struct,\n      key.offset: 16,\n      key.length: 3,\n      key.is_system: 1\n    }\n  ],\n  key.diagnostic_stage: source.diagnostic.stage.swift.sema,\n  key.syntaxmap: [\n  ],\n  key.diagnostics: [\n    {\n      key.line: 2,\n      key.column: 5,\n      key.filepath: \"/Users/alex/repl.swift\",\n      key.severity: source.diagnostic.severity.error,\n      key.description: \"expected pattern\",\n      key.diagnostic_stage: source.diagnostic.stage.swift.parse\n    },\n    {\n      key.line: 1,\n      key.column: 15,\n      key.filepath: \"/Users/alex/repl.swift\",\n      key.severity: source.diagnostic.severity.error,\n      key.description: \"cannot assign to value: \'a\' is a \'let\' constant\",\n      key.diagnostic_stage: source.diagnostic.stage.swift.sema,\n      key.ranges: [\n        {\n          key.offset: 12,\n          key.length: 1\n        }\n      ],\n      key.diagnostics: [\n        {\n          key.line: 1,\n          key.column: 1,\n          key.filepath: \"/Users/alex/repl.swift\",\n          key.severity: source.diagnostic.severity.note,\n          key.description: \"change \'let\' to \'var\' to make it mutable\",\n          key.fixits: [\n            {\n              key.offset: 0,\n              key.length: 3,\n              key.sourcetext: \"var\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}")
         let value = response.value
-        let diags = value.dictionaryGetValue(KeyDiagnostics)
+        let diags: Variant = value[KeyDiagnostics]
         XCTAssertEqual(diags.type, Variant.VariantType.Array)
         let diagnostics = Array(try! Diagnostics(variant: diags))
         let expectedDiagnostics = [

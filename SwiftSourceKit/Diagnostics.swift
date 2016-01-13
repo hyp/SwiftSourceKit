@@ -39,13 +39,13 @@ public struct DiagnosticGenerator: GeneratorType {
     private let array: sourcekitd_variant_t
     private let count: Int
     private var nextIndex = 0
-    
+
     init(array: sourcekitd_variant_t) {
         self.array = array
         assert(sourcekitd_variant_get_type(array) == SOURCEKITD_VARIANT_TYPE_ARRAY)
         count = sourcekitd_variant_array_get_count(array)
     }
-    
+
     mutating public func next() -> Diagnostic? {
         if nextIndex >= count {
             return nil
@@ -54,12 +54,12 @@ public struct DiagnosticGenerator: GeneratorType {
         nextIndex += 1
         assert(sourcekitd_variant_get_type(value) == SOURCEKITD_VARIANT_TYPE_DICTIONARY)
         let variant = Variant(variant: value)
-        let filepath = variant.dictionaryGetString(KeyFilePath)
+        let filepath: String = variant[KeyFilePath]
         let line = Int(sourcekitd_variant_dictionary_get_int64(value, KeyLine))
         let column = Int(sourcekitd_variant_dictionary_get_int64(value, KeyColumn))
         let severity = sourcekitd_variant_dictionary_get_uid(value, KeySeverity)
         let stage = sourcekitd_variant_dictionary_get_uid(value, KeyDiagnosticStage)
-        let description = variant.dictionaryGetString(KeyDescription)
+        let description: String = variant[KeyDescription]
         return Diagnostic(kind: getDiagnosticKind(severity), stage: getDiagnosticStageKind(stage), line: line, column: column, filepath: filepath, description: description)
     }
 }
@@ -70,12 +70,12 @@ public enum DiagnosticsError: ErrorType {
 
 public class Diagnostics: SequenceType {
     private let variant: Variant
-    
+
     public init(variant: Variant) throws {
         self.variant = variant
         guard case Variant.VariantType.Array = variant.type else { throw DiagnosticsError.InvalidVariant }
     }
-    
+
     public func generate() -> DiagnosticGenerator {
         return DiagnosticGenerator(array: variant.variant)
     }
