@@ -37,7 +37,7 @@ extension RequestValue {
     }
 }
     
-public class Request {
+public final class Request {
     private let request: sourcekitd_object_t
     
     public init(dictionary: [sourcekitd_uid_t : RequestValue], compilerArgs: [String] = []) {

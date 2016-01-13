@@ -40,7 +40,7 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
     }
     
     func testEditorOpen() {
-        let request = EditorOpenRequest(filename: "test.swift", sourceText: "let a = 22", enableSyntaxMap: true)
+        let request = Request.createEditorOpenRequest("test.swift", sourceText: "let a = 22", enableSyntaxMap: true)
         do {
             let response = try request.sendAndWaitForResponse()
             XCTAssertEqual(response.description, "{\n  key.offset: 0,\n  key.length: 10,\n  key.diagnostic_stage: source.diagnostic.stage.swift.parse,\n  key.syntaxmap: [\n    {\n      key.kind: source.lang.swift.syntaxtype.keyword,\n      key.offset: 0,\n      key.length: 3\n    },\n    {\n      key.kind: source.lang.swift.syntaxtype.identifier,\n      key.offset: 4,\n      key.length: 1\n    },\n    {\n      key.kind: source.lang.swift.syntaxtype.number,\n      key.offset: 8,\n      key.length: 2\n    }\n  ]\n}")
@@ -56,7 +56,7 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
     }
     
     func testSyntaxMap() {
-        let request = EditorOpenRequest(filename: "test.swift", sourceText: "let a = Int(55); let b = \"a\"\n//comment", enableSyntaxMap: true)
+        let request = Request.createEditorOpenRequest("test.swift", sourceText: "let a = Int(55); let b = \"a\"\n//comment", enableSyntaxMap: true)
         do {
             let response = try request.sendAndWaitForResponse()
             let value = response.value
@@ -98,7 +98,7 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
         defer {
             semaResponseHandler = nil
         }
-        let request = EditorOpenRequest(filename: "/Users/alex/repl.swift", sourceText: "let a = 22; a = Int(0)\n let", compilerArgs: ["/Users/alex/repl.swift"])
+        let request = Request.createEditorOpenRequest("/Users/alex/repl.swift", sourceText: "let a = 22; a = Int(0)\n let", compilerArgs: ["/Users/alex/repl.swift"])
         do {
             _ = try request.sendAndWaitForResponse()
         } catch _ {
