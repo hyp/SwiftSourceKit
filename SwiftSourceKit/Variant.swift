@@ -8,7 +8,7 @@ import sourcekitd
 
 public struct Variant {
     let variant: sourcekitd_variant_t
-    
+
     public enum VariantType {
         case Null
         case Dictionary
@@ -18,7 +18,7 @@ public struct Variant {
         case UID
         case Boolean
     }
-    
+
     public var type: VariantType {
         switch sourcekitd_variant_get_type(variant) {
         case SOURCEKITD_VARIANT_TYPE_NULL: return .Null
@@ -32,15 +32,15 @@ public struct Variant {
             fatalError("Invalid sourcekitd variant type")
         }
     }
-    
+
     init(variant: sourcekitd_variant_t) {
         self.variant = variant
     }
-    
+
     public subscript(key: sourcekitd_uid_t) -> sourcekitd_uid_t {
         return sourcekitd_variant_dictionary_get_uid(variant, key)
     }
-    
+
     public subscript(key: sourcekitd_uid_t) -> Int {
         return Int(sourcekitd_variant_dictionary_get_int64(variant, key))
     }
