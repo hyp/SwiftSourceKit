@@ -41,6 +41,10 @@ public struct Variant {
         return sourcekitd_variant_dictionary_get_uid(variant, key)
     }
     
+    public func dictionaryGetInt(key: sourcekitd_uid_t) -> Int {
+        return Int(sourcekitd_variant_dictionary_get_int64(variant, key))
+    }
+
     public func dictionaryGetString(key: sourcekitd_uid_t) -> String {
         guard let str = String.fromCString(sourcekitd_variant_dictionary_get_string(variant, key)) else {
             return ""
