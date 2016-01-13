@@ -23,4 +23,14 @@ extension Request {
             KeySourceText: .Str(""),
         ])
     }
+
+    public static func createEditorReplaceTextRequest(name: String, offset: Int, length: Int, sourceText: String) -> Request {
+        return Request(dictionary: [
+            KeyRequest: .UID(RequestEditorReplaceText),
+            KeyName: .Str(name),
+            KeyOffset: .Integer(offset),
+            KeyLength: .Integer(length),
+            KeySourceText: .Str(sourceText),
+        ])
+    }
 }
