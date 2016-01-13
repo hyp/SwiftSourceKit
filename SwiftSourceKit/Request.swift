@@ -72,4 +72,14 @@ public final class Request {
         }
         return Response(response: response)
     }
+
+    public func send(errorCallback: (ResponseError) -> (), responseCallback: (Response) -> ()) {
+        sourcekitd_send_request(request, nil) {
+            (response) in
+            if sourcekitd_response_is_error(response) {
+                errorCallback(ResponseError(response: response))
+            }
+            responseCallback(Response(response: response))
+        }
+    }
 }
