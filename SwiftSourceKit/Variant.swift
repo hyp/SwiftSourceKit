@@ -37,22 +37,22 @@ public struct Variant {
         self.variant = variant
     }
 
-    public subscript(key: sourcekitd_uid_t) -> sourcekitd_uid_t {
+    public subscript(UIDForKey key: sourcekitd_uid_t) -> sourcekitd_uid_t {
         return sourcekitd_variant_dictionary_get_uid(variant, key)
     }
 
-    public subscript(key: sourcekitd_uid_t) -> Int {
+    public subscript(IntForKey key: sourcekitd_uid_t) -> Int {
         return Int(sourcekitd_variant_dictionary_get_int64(variant, key))
     }
 
-    public subscript(key: sourcekitd_uid_t) -> String {
+    public subscript(StringForKey key: sourcekitd_uid_t) -> String {
         guard let str = String.fromCString(sourcekitd_variant_dictionary_get_string(variant, key)) else {
             return ""
         }
         return str
     }
     
-    public subscript(key: sourcekitd_uid_t) -> Variant {
+    public subscript(VariantForKey key: sourcekitd_uid_t) -> Variant {
         return Variant(variant: sourcekitd_variant_dictionary_get_value(variant, key))
     }
     

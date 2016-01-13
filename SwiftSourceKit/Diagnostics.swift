@@ -54,12 +54,12 @@ public struct DiagnosticGenerator: GeneratorType {
         nextIndex += 1
         assert(sourcekitd_variant_get_type(value) == SOURCEKITD_VARIANT_TYPE_DICTIONARY)
         let variant = Variant(variant: value)
-        let filepath: String = variant[KeyFilePath]
+        let filepath = variant[StringForKey: KeyFilePath]
         let line = Int(sourcekitd_variant_dictionary_get_int64(value, KeyLine))
         let column = Int(sourcekitd_variant_dictionary_get_int64(value, KeyColumn))
         let severity = sourcekitd_variant_dictionary_get_uid(value, KeySeverity)
         let stage = sourcekitd_variant_dictionary_get_uid(value, KeyDiagnosticStage)
-        let description: String = variant[KeyDescription]
+        let description = variant[StringForKey: KeyDescription]
         return Diagnostic(kind: getDiagnosticKind(severity), stage: getDiagnosticStageKind(stage), line: line, column: column, filepath: filepath, description: description)
     }
 }
