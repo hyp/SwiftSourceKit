@@ -47,6 +47,12 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
         } catch {
             XCTFail()
         }
+        let closeRequest = Request.createEditorCloseRequest("test.swift")
+        do {
+            try closeRequest.sendAndWaitForResponse()
+        } catch {
+            XCTFail()
+        }
     }
     
     func testSyntaxMap() {

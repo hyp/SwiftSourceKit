@@ -16,3 +16,13 @@ public final class EditorOpenRequest: Request {
         ], compilerArgs: compilerArgs)
     }
 }
+
+extension Request {
+    static func createEditorCloseRequest(filename: String) -> Request {
+        return Request(dictionary: [
+            KeyRequest: .UID(RequestEditorClose),
+            KeyName: .Str(filename),
+            KeySourceText: .Str(""),
+        ])
+    }
+}

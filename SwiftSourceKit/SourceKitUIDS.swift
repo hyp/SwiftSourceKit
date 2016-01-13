@@ -54,6 +54,7 @@ public let RequestCodeCompleteSetPopularAPI = sourcekitd_uid_get_from_cstr("sour
 public let RequestCursorInfo = sourcekitd_uid_get_from_cstr("source.request.cursorinfo")
 public let RequestRelatedIdents = sourcekitd_uid_get_from_cstr("source.request.relatedidents")
 public let RequestEditorOpen = sourcekitd_uid_get_from_cstr("source.request.editor.open")
+public let RequestEditorClose = sourcekitd_uid_get_from_cstr("source.request.editor.close")
 public let RequestEditorOpenInterface = sourcekitd_uid_get_from_cstr("source.request.editor.open.interface")
 public let RequestEditorOpenSwiftSourceInterface = sourcekitd_uid_get_from_cstr("source.request.editor.open.interface.swiftsource")
 public let RequestEditorOpenHeaderInterface = sourcekitd_uid_get_from_cstr("source.request.editor.open.interface.header")
