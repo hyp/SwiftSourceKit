@@ -122,16 +122,30 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
         let diagnostics = Array(try! Diagnostics(variant: diags))
         let expectedDiagnostics = [
             Diagnostic(kind: .Error, stage: .Parse, line: 2, column: 5, filepath: "testSema.swift", description: "expected pattern"),
-            Diagnostic(kind: .Error, stage: .Sema, line: 1, column: 15, filepath: "testSema.swift", description: "cannot assign to value: 'a' is a 'let' constant")
+            Diagnostic(kind: .Error, stage: .Sema, line: 1, column: 15, filepath: "testSema.swift", description: "cannot assign to value: 'a' is a 'let' constant", diagnostics: [ Diagnostic(kind: .Note, stage: .Other, line: 1, column: 1, filepath: "testSema.swift", description: "change 'let' to 'var' to make it mutable", fixits: [ DiagnosticFixit(offset: 0, length: 3, sourceText: "var") ]) ])
         ]
         XCTAssertEqual(diagnostics.count, expectedDiagnostics.count)
         for (diag, expected) in zip(diagnostics, expectedDiagnostics) {
-            XCTAssertEqual(diag.kind, expected.kind)
-            XCTAssertEqual(diag.stage, expected.stage)
-            XCTAssertEqual(diag.line, expected.line)
-            XCTAssertEqual(diag.column, expected.column)
-            XCTAssertEqual(diag.filepath, expected.filepath)
-            XCTAssertEqual(diag.description, expected.description)
+            verifyDiagnostic(diag, expected: expected)
         }
+    }
+}
+
+func verifyDiagnostic(diag: Diagnostic, expected: Diagnostic) {
+    XCTAssertEqual(diag.kind, expected.kind)
+    XCTAssertEqual(diag.stage, expected.stage)
+    XCTAssertEqual(diag.line, expected.line)
+    XCTAssertEqual(diag.column, expected.column)
+    XCTAssertEqual(diag.filepath, expected.filepath)
+    XCTAssertEqual(diag.description, expected.description)
+    XCTAssertEqual(diag.diagnostics.count, expected.diagnostics.count)
+    for (i, j) in zip(diag.diagnostics, expected.diagnostics) {
+        verifyDiagnostic(i, expected: j)
+    }
+    XCTAssertEqual(diag.fixits.count, expected.fixits.count)
+    for (fixit, expected) in zip(diag.fixits, expected.fixits) {
+        XCTAssertEqual(fixit.offset, expected.offset)
+        XCTAssertEqual(fixit.length, expected.length)
+        XCTAssertEqual(fixit.sourceText, expected.sourceText)
     }
 }

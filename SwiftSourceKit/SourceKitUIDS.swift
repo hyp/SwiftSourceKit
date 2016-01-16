@@ -43,6 +43,7 @@ public let KeyUnpopular = sourcekitd_uid_get_from_cstr("key.unpopular")
 public let KeyTypeInterface = sourcekitd_uid_get_from_cstr("key.typeinterface")
 public let KeySeverity = sourcekitd_uid_get_from_cstr("key.severity")
 public let KeyDescription = sourcekitd_uid_get_from_cstr("key.description")
+public let KeyFixits = sourcekitd_uid_get_from_cstr("key.fixits")
 
 public let RequestIndex = sourcekitd_uid_get_from_cstr("source.request.indexsource")
 public let RequestCodeComplete = sourcekitd_uid_get_from_cstr("source.request.codecomplete")
