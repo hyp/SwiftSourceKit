@@ -78,8 +78,9 @@ public final class Request {
             (response) in
             if sourcekitd_response_is_error(response) {
                 errorCallback(ResponseError(response: response))
+            } else {
+                responseCallback(Response(response: response))
             }
-            responseCallback(Response(response: response))
         }
     }
 }
