@@ -109,3 +109,9 @@ public let SourceSwiftStructureElemInitExpr = sourcekitd_uid_get_from_cstr("sour
 public let SourceSwiftStructureElemCondExpr = sourcekitd_uid_get_from_cstr("source.lang.swift.structure.elem.condition_expr")
 public let SourceSwiftStructureElemPattern = sourcekitd_uid_get_from_cstr("source.lang.swift.structure.elem.pattern")
 public let SourceSwiftStructureElemTypeRef = sourcekitd_uid_get_from_cstr("source.lang.swift.structure.elem.typeref")
+
+public let SourceLangSwiftKeyword = sourcekitd_uid_get_from_cstr("source.lang.swift.syntaxtype.keyword")
+public let SourceLangSwiftIdentifier = sourcekitd_uid_get_from_cstr("source.lang.swift.syntaxtype.identifier")
+public let SourceLangSwiftNumber = sourcekitd_uid_get_from_cstr("source.lang.swift.syntaxtype.number")
+public let SourceLangSwiftString = sourcekitd_uid_get_from_cstr("source.lang.swift.syntaxtype.string")
+public let SourceLangSwiftComment = sourcekitd_uid_get_from_cstr("source.lang.swift.syntaxtype.comment")

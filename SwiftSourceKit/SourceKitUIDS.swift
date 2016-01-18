@@ -69,12 +69,6 @@ public let RequestDocInfo = sourcekitd_uid_get_from_cstr("source.request.docinfo
 
 public let NotificationDocumentUpdate = sourcekitd_uid_get_from_cstr("source.notification.editor.documentupdate")
 
-public let SourceLangSwiftKeyword = sourcekitd_uid_get_from_cstr("source.lang.swift.syntaxtype.keyword")
-public let SourceLangSwiftIdentifier = sourcekitd_uid_get_from_cstr("source.lang.swift.syntaxtype.identifier")
-public let SourceLangSwiftNumber = sourcekitd_uid_get_from_cstr("source.lang.swift.syntaxtype.number")
-public let SourceLangSwiftString = sourcekitd_uid_get_from_cstr("source.lang.swift.syntaxtype.string")
-public let SourceLangSwiftComment = sourcekitd_uid_get_from_cstr("source.lang.swift.syntaxtype.comment")
-
 public let SourceDiagnosticSeverityError = sourcekitd_uid_get_from_cstr("source.diagnostic.severity.error")
 public let SourceDiagnosticSeverityWarning = sourcekitd_uid_get_from_cstr("source.diagnostic.severity.warning")
 public let SourceDiagnosticSeverityNote = sourcekitd_uid_get_from_cstr("source.diagnostic.severity.note")
