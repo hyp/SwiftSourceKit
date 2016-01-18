@@ -19,6 +19,7 @@
 		FA25674A1C444A1A000EEB38 /* Diagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2567491C444A1A000EEB38 /* Diagnostics.swift */; };
 		FA35B99D1C428E3E00BAF98E /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA35B99C1C428E3E00BAF98E /* ResponseError.swift */; };
 		FA42CBD11C43B17400E87685 /* sourcekitd.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAFDC2561C43AE1F009575FA /* sourcekitd.framework */; };
+		FA5257711C4D124100EF4212 /* SwiftLangSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5257701C4D124100EF4212 /* SwiftLangSupport.swift */; };
 		FA622FD61C432209001E8CFF /* Variant.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA622FD51C432209001E8CFF /* Variant.swift */; };
 		FAFDC2571C43AE1F009575FA /* sourcekitd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFDC2561C43AE1F009575FA /* sourcekitd.framework */; };
 /* End PBXBuildFile section */
@@ -61,6 +62,7 @@
 		FA13D0721C43B743005F0CA7 /* SyntaxMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxMap.swift; sourceTree = "<group>"; usesTabs = 0; };
 		FA2567491C444A1A000EEB38 /* Diagnostics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Diagnostics.swift; sourceTree = "<group>"; usesTabs = 0; };
 		FA35B99C1C428E3E00BAF98E /* ResponseError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; usesTabs = 0; };
+		FA5257701C4D124100EF4212 /* SwiftLangSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftLangSupport.swift; sourceTree = "<group>"; };
 		FA622FD51C432209001E8CFF /* Variant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variant.swift; sourceTree = "<group>"; usesTabs = 0; };
 		FAFDC2561C43AE1F009575FA /* sourcekitd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sourcekitd.framework; path = "../build/Ninja-DebugAssert/swift-macosx-x86_64/lib/sourcekitd.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,6 +113,7 @@
 				FA106D781C42644000E01181 /* Info.plist */,
 				FA106DA31C4276ED00E01181 /* SourceKit.swift */,
 				FA106D9D1C42686E00E01181 /* SourceKitUIDS.swift */,
+				FA5257701C4D124100EF4212 /* SwiftLangSupport.swift */,
 				FA106D9F1C4269E400E01181 /* Request.swift */,
 				FA106DA51C42787F00E01181 /* EditorRequest.swift */,
 				FA106DA11C4272BA00E01181 /* Response.swift */,
@@ -260,6 +263,7 @@
 			files = (
 				FA106DA21C4272BA00E01181 /* Response.swift in Sources */,
 				FA25674A1C444A1A000EEB38 /* Diagnostics.swift in Sources */,
+				FA5257711C4D124100EF4212 /* SwiftLangSupport.swift in Sources */,
 				FA106D9E1C42686E00E01181 /* SourceKitUIDS.swift in Sources */,
 				FA106DA41C4276ED00E01181 /* SourceKit.swift in Sources */,
 				FA35B99D1C428E3E00BAF98E /* ResponseError.swift in Sources */,
