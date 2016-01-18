@@ -44,6 +44,7 @@ public let KeyTypeInterface = sourcekitd_uid_get_from_cstr("key.typeinterface")
 public let KeySeverity = sourcekitd_uid_get_from_cstr("key.severity")
 public let KeyDescription = sourcekitd_uid_get_from_cstr("key.description")
 public let KeyFixits = sourcekitd_uid_get_from_cstr("key.fixits")
+public let KeyNumBytesToErase = sourcekitd_uid_get_from_cstr("key.num_bytes_to_erase")
 
 public let RequestIndex = sourcekitd_uid_get_from_cstr("source.request.indexsource")
 public let RequestCodeComplete = sourcekitd_uid_get_from_cstr("source.request.codecomplete")

@@ -129,6 +129,30 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
             verifyDiagnostic(diag, expected: expected)
         }
     }
+
+    func testCodeComplete() {
+        let sourceText = "Int.\n"
+        let request = Request.createEditorOpenRequest("test.swift", sourceText: sourceText, enableSyntaxMap: true)
+        do {
+            try request.sendAndWaitForResponse()
+            let codeCompletionRequest = Request.createCodeCompleteRequest("codeComplete.swift", sourceText: sourceText, offset: 4, compilerArgs: [ "codeComplete.swift" ])
+            let response = try codeCompletionRequest.sendAndWaitForResponse()
+            let results = Array(try CodeCompletionResults(variant: response.results))
+            XCTAssertEqual(results.count, 49)
+            let expectedResults = [ (i: 0, CompletionResult(kind: SourceSwiftDeclMethodClass, name: "addWithOverflow(lhs:rhs:)", sourceText: "addWithOverflow(<#T##lhs: Int##Int#>, <#T##rhs: Int##Int#>)", description: "addWithOverflow(lhs: Int, rhs: Int)", typename: "(Int, overflow: Bool)", numBytesToErase: 0)) ]
+            for (i, expected) in expectedResults {
+                let result = results[i]
+                XCTAssertEqual(result.kind, expected.kind)
+                XCTAssertEqual(result.name, expected.name)
+                XCTAssertEqual(result.sourceText, expected.sourceText)
+                XCTAssertEqual(result.description, expected.description)
+                XCTAssertEqual(result.typename, expected.typename)
+                XCTAssertEqual(result.numBytesToErase, expected.numBytesToErase)
+            }
+        } catch {
+            XCTFail()
+        }
+    }
 }
 
 func verifyDiagnostic(diag: Diagnostic, expected: Diagnostic) {
