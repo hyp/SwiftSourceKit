@@ -7,8 +7,7 @@ let dict = NSProcessInfo.processInfo().environment
 let srcRoot = dict["SRCROOT"]!
 let builtProductsDir = dict["BUILT_PRODUCTS_DIR"]!
 
-let libFiles = ["libswiftCore.dylib", "libswiftSwiftPrivate.dylib", "libswiftSwiftPrivateDarwinExtras.dylib", "libswiftSwiftPrivatePthreadExtras.dylib", "Swift.swiftdoc", "Swift.swiftmodule", "SwiftPrivate.swiftdoc", "SwiftPrivate.swiftmodule", "SwiftPrivateDarwinExtras.swiftdoc", "SwiftPrivateDarwinExtras.swiftmodule", "SwiftPrivatePthreadExtras.swiftdoc", "SwiftPrivatePthreadExtras.swiftmodule"]
-let files = ["libswiftDemangle.dylib"] + libFiles.map { "swift/macosx/x86_64/" + $0 }
+let files = ["libswiftCore.dylib", "libswiftSwiftPrivate.dylib", "libswiftSwiftPrivateDarwinExtras.dylib", "libswiftSwiftPrivatePthreadExtras.dylib", "Swift.swiftdoc", "Swift.swiftmodule", "SwiftPrivate.swiftdoc", "SwiftPrivate.swiftmodule", "SwiftPrivateDarwinExtras.swiftdoc", "SwiftPrivateDarwinExtras.swiftmodule", "SwiftPrivatePthreadExtras.swiftdoc", "SwiftPrivatePthreadExtras.swiftmodule"].map { "swift/macosx/x86_64/" + $0 }
 let paths = [(from: "swift/shims", to: "swift")]
 
 func copy(from: String, to: String) {
