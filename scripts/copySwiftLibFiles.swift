@@ -3,9 +3,13 @@
 
 import Foundation
 
+if Process.arguments.count < 3 {
+    fatalError("No arguments given")
+}
+
 let dict = NSProcessInfo.processInfo().environment
-let srcRoot = dict["SRCROOT"]!
-let builtProductsDir = dict["BUILT_PRODUCTS_DIR"]!
+let srcRoot = Process.arguments[1]
+let builtProductsDir = Process.arguments[2]
 
 let files = ["libswiftCore.dylib", "libswiftSwiftPrivate.dylib", "libswiftSwiftPrivateDarwinExtras.dylib", "libswiftSwiftPrivatePthreadExtras.dylib", "Swift.swiftdoc", "Swift.swiftmodule", "SwiftPrivate.swiftdoc", "SwiftPrivate.swiftmodule", "SwiftPrivateDarwinExtras.swiftdoc", "SwiftPrivateDarwinExtras.swiftmodule", "SwiftPrivatePthreadExtras.swiftdoc", "SwiftPrivatePthreadExtras.swiftmodule"].map { "swift/macosx/x86_64/" + $0 }
 let paths = [(from: "swift/shims", to: "swift")]
@@ -38,7 +42,7 @@ for dir in dirs {
 }
 
 func from(path: String) -> String {
-    return NSURL(fileURLWithPath: srcRoot).URLByAppendingPathComponent("/../build/Ninja-DebugAssert/swift-macosx-x86_64/lib").URLByAppendingPathComponent(path).path!
+    return NSURL(fileURLWithPath: srcRoot).URLByAppendingPathComponent("/build/Ninja-DebugAssert/swift-macosx-x86_64/lib").URLByAppendingPathComponent(path).path!
 }
 
 switch dict["CONFIGURATION"]!.lowercaseString {

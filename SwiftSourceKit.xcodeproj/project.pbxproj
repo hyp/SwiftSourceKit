@@ -178,7 +178,7 @@
 				FA106D7A1C42644000E01181 /* Frameworks */,
 				FA106D7B1C42644000E01181 /* Resources */,
 				FA4D1FAC1C5A22ED00FECA62 /* Copy Files */,
-				FA4D1FAE1C5A234300FECA62 /* ShellScript */,
+				FA4D1FAE1C5A234300FECA62 /* Copy Sourcekit's Swift Dependencies */,
 			);
 			buildRules = (
 			);
@@ -244,18 +244,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		FA4D1FAE1C5A234300FECA62 /* ShellScript */ = {
+		FA4D1FAE1C5A234300FECA62 /* Copy Sourcekit's Swift Dependencies */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Copy Sourcekit's Swift Dependencies";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/bin/swift ${SRCROOT}/scripts/copySwiftLibFiles.swift";
+			shellScript = "/usr/bin/swift ${SRCROOT}/scripts/copySwiftLibFiles.swift ${SRCROOT}/.. ${BUILT_PRODUCTS_DIR}";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
