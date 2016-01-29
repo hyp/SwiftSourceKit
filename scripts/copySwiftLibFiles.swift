@@ -11,8 +11,26 @@ let dict = NSProcessInfo.processInfo().environment
 let srcRoot = Process.arguments[1]
 let builtProductsDir = Process.arguments[2]
 
-let files = ["libswiftCore.dylib", "libswiftSwiftPrivate.dylib", "libswiftSwiftPrivateDarwinExtras.dylib", "libswiftSwiftPrivatePthreadExtras.dylib", "Swift.swiftdoc", "Swift.swiftmodule", "SwiftPrivate.swiftdoc", "SwiftPrivate.swiftmodule", "SwiftPrivateDarwinExtras.swiftdoc", "SwiftPrivateDarwinExtras.swiftmodule", "SwiftPrivatePthreadExtras.swiftdoc", "SwiftPrivatePthreadExtras.swiftmodule"].map { "swift/macosx/x86_64/" + $0 }
+var moduleFiles = ["libswiftCore.dylib", "libswiftSwiftPrivate.dylib", "libswiftSwiftPrivateDarwinExtras.dylib", "libswiftSwiftPrivatePthreadExtras.dylib", "Swift.swiftdoc", "Swift.swiftmodule", "SwiftPrivate.swiftdoc", "SwiftPrivate.swiftmodule", "SwiftPrivateDarwinExtras.swiftdoc", "SwiftPrivateDarwinExtras.swiftmodule", "SwiftPrivatePthreadExtras.swiftdoc", "SwiftPrivatePthreadExtras.swiftmodule"]
 let paths = [(from: "swift/shims", to: "swift")]
+
+// Parse additional parameters
+var i = 3
+while i < Process.arguments.count {
+    switch Process.arguments[i] {
+    case "-file":
+        i += 1
+        if i >= Process.arguments.count {
+            fatalError("Expected an argument after '-file'")
+        }
+        moduleFiles.append(Process.arguments[i])
+    case let arg:
+        fatalError("Unknown argument '\(arg)'")
+    }
+    i += 1
+}
+
+let files = moduleFiles.map { "swift/macosx/x86_64/" + $0 }
 
 func copy(from: String, to: String) {
     let task = NSTask()
