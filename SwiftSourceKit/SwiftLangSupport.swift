@@ -8,42 +8,24 @@ import sourcekitd
 
 public let SourceSwiftDeclFunctionFree = sourcekitd_uid_get_from_cstr("source.lang.swift.decl.function.free")
 public let SourceSwiftRefFunctionFree = sourcekitd_uid_get_from_cstr("source.lang.swift.ref.function.free")
-public let SourceSwiftDeclMethodInstance = sourcekitd_uid_get_from_cstr(
-"source.lang.swift.decl.function.method.instance")
-public let SourceSwiftRefMethodInstance = sourcekitd_uid_get_from_cstr(
-"source.lang.swift.ref.function.method.instance")
-public let SourceSwiftDeclMethodStatic = sourcekitd_uid_get_from_cstr(
-"source.lang.swift.decl.function.method.static")
-public let SourceSwiftRefMethodStatic = sourcekitd_uid_get_from_cstr(
-"source.lang.swift.ref.function.method.static")
-public let SourceSwiftDeclMethodClass = sourcekitd_uid_get_from_cstr(
-"source.lang.swift.decl.function.method.class")
-public let SourceSwiftRefMethodClass = sourcekitd_uid_get_from_cstr(
-"source.lang.swift.ref.function.method.class")
-public let SourceSwiftDeclAccessorGetter = sourcekitd_uid_get_from_cstr(
-"source.lang.swift.decl.function.accessor.getter")
-public let SourceSwiftRefAccessorGetter = sourcekitd_uid_get_from_cstr(
-"source.lang.swift.ref.function.accessor.getter")
-public let SourceSwiftDeclAccessorSetter = sourcekitd_uid_get_from_cstr(
-"source.lang.swift.decl.function.accessor.setter")
-public let SourceSwiftRefAccessorSetter = sourcekitd_uid_get_from_cstr(
-"source.lang.swift.ref.function.accessor.setter")
-public let SourceSwiftDeclAccessorWillSet = sourcekitd_uid_get_from_cstr(
-"source.lang.swift.decl.function.accessor.willset")
-public let SourceSwiftRefAccessorWillSet = sourcekitd_uid_get_from_cstr(
-"source.lang.swift.ref.function.accessor.willset")
-public let SourceSwiftDeclAccessorDidSet = sourcekitd_uid_get_from_cstr(
-"source.lang.swift.decl.function.accessor.didset")
-public let SourceSwiftRefAccessorDidSet = sourcekitd_uid_get_from_cstr(
-"source.lang.swift.ref.function.accessor.didset")
-public let SourceSwiftDeclAccessorAddress = sourcekitd_uid_get_from_cstr(
-"source.lang.swift.decl.function.accessor.address")
-public let SourceSwiftRefAccessorAddress = sourcekitd_uid_get_from_cstr(
-"source.lang.swift.ref.function.accessor.address")
-public let SourceSwiftDeclAccessorMutableAddress = sourcekitd_uid_get_from_cstr(
-"source.lang.swift.decl.function.accessor.mutableaddress")
-public let SourceSwiftRefAccessorMutableAddress = sourcekitd_uid_get_from_cstr(
-"source.lang.swift.ref.function.accessor.mutableaddress")
+public let SourceSwiftDeclMethodInstance = sourcekitd_uid_get_from_cstr("source.lang.swift.decl.function.method.instance")
+public let SourceSwiftRefMethodInstance = sourcekitd_uid_get_from_cstr("source.lang.swift.ref.function.method.instance")
+public let SourceSwiftDeclMethodStatic = sourcekitd_uid_get_from_cstr("source.lang.swift.decl.function.method.static")
+public let SourceSwiftRefMethodStatic = sourcekitd_uid_get_from_cstr("source.lang.swift.ref.function.method.static")
+public let SourceSwiftDeclMethodClass = sourcekitd_uid_get_from_cstr("source.lang.swift.decl.function.method.class")
+public let SourceSwiftRefMethodClass = sourcekitd_uid_get_from_cstr("source.lang.swift.ref.function.method.class")
+public let SourceSwiftDeclAccessorGetter = sourcekitd_uid_get_from_cstr("source.lang.swift.decl.function.accessor.getter")
+public let SourceSwiftRefAccessorGetter = sourcekitd_uid_get_from_cstr("source.lang.swift.ref.function.accessor.getter")
+public let SourceSwiftDeclAccessorSetter = sourcekitd_uid_get_from_cstr("source.lang.swift.decl.function.accessor.setter")
+public let SourceSwiftRefAccessorSetter = sourcekitd_uid_get_from_cstr("source.lang.swift.ref.function.accessor.setter")
+public let SourceSwiftDeclAccessorWillSet = sourcekitd_uid_get_from_cstr("source.lang.swift.decl.function.accessor.willset")
+public let SourceSwiftRefAccessorWillSet = sourcekitd_uid_get_from_cstr("source.lang.swift.ref.function.accessor.willset")
+public let SourceSwiftDeclAccessorDidSet = sourcekitd_uid_get_from_cstr("source.lang.swift.decl.function.accessor.didset")
+public let SourceSwiftRefAccessorDidSet = sourcekitd_uid_get_from_cstr("source.lang.swift.ref.function.accessor.didset")
+public let SourceSwiftDeclAccessorAddress = sourcekitd_uid_get_from_cstr("source.lang.swift.decl.function.accessor.address")
+public let SourceSwiftRefAccessorAddress = sourcekitd_uid_get_from_cstr("source.lang.swift.ref.function.accessor.address")
+public let SourceSwiftDeclAccessorMutableAddress = sourcekitd_uid_get_from_cstr("source.lang.swift.decl.function.accessor.mutableaddress")
+public let SourceSwiftRefAccessorMutableAddress = sourcekitd_uid_get_from_cstr("source.lang.swift.ref.function.accessor.mutableaddress")
 public let SourceSwiftDeclConstructor = sourcekitd_uid_get_from_cstr("source.lang.swift.decl.function.constructor")
 public let SourceSwiftRefConstructor = sourcekitd_uid_get_from_cstr("source.lang.swift.ref.function.constructor")
 public let SourceSwiftDeclDestructor = sourcekitd_uid_get_from_cstr("source.lang.swift.decl.function.destructor")
