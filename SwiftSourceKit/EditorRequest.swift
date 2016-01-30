@@ -33,4 +33,12 @@ extension Request {
             KeySourceText: .Str(sourceText),
         ])
     }
+
+    public static func createCursorInfoRequestForFile(filename: String, offset: Int, compilerArgs: [String] = []) -> Request {
+        return Request(dictionary: [
+            KeyRequest: .UID(RequestCursorInfo),
+            KeySourceFile: .Str(filename),
+            KeyOffset: .Integer(offset)
+        ], compilerArgs: compilerArgs)
+    }
 }

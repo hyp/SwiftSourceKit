@@ -22,6 +22,8 @@
 		FA5257711C4D124100EF4212 /* SwiftLangSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5257701C4D124100EF4212 /* SwiftLangSupport.swift */; };
 		FA5257731C4D14B300EF4212 /* CodeCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5257721C4D14B300EF4212 /* CodeCompletion.swift */; };
 		FA622FD61C432209001E8CFF /* Variant.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA622FD51C432209001E8CFF /* Variant.swift */; };
+		FA7E5C131C5CFD8700C77EA8 /* test.swift in CopyFiles */ = {isa = PBXBuildFile; fileRef = FA7E5C0E1C5CFC8E00C77EA8 /* test.swift */; };
+		FA7E5C151C5CFEF700C77EA8 /* CursorInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7E5C141C5CFEF700C77EA8 /* CursorInfo.swift */; };
 		FAFDC2571C43AE1F009575FA /* sourcekitd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFDC2561C43AE1F009575FA /* sourcekitd.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +49,16 @@
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FA7E5C121C5CFD7D00C77EA8 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				FA7E5C131C5CFD8700C77EA8 /* test.swift in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +79,8 @@
 		FA5257701C4D124100EF4212 /* SwiftLangSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftLangSupport.swift; sourceTree = "<group>"; };
 		FA5257721C4D14B300EF4212 /* CodeCompletion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeCompletion.swift; sourceTree = "<group>"; };
 		FA622FD51C432209001E8CFF /* Variant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variant.swift; sourceTree = "<group>"; usesTabs = 0; };
+		FA7E5C0E1C5CFC8E00C77EA8 /* test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
+		FA7E5C141C5CFEF700C77EA8 /* CursorInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CursorInfo.swift; sourceTree = "<group>"; };
 		FAFDC2561C43AE1F009575FA /* sourcekitd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sourcekitd.framework; path = "../build/Ninja-DebugAssert/swift-macosx-x86_64/lib/sourcekitd.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,6 +139,7 @@
 				FA13D0721C43B743005F0CA7 /* SyntaxMap.swift */,
 				FA2567491C444A1A000EEB38 /* Diagnostics.swift */,
 				FA5257721C4D14B300EF4212 /* CodeCompletion.swift */,
+				FA7E5C141C5CFEF700C77EA8 /* CursorInfo.swift */,
 			);
 			path = SwiftSourceKit;
 			sourceTree = "<group>";
@@ -133,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				FA106D821C42644000E01181 /* SwiftSourceKitTests.swift */,
+				FA7E5C0E1C5CFC8E00C77EA8 /* test.swift */,
 				FA106D841C42644000E01181 /* Info.plist */,
 			);
 			path = SwiftSourceKitTests;
@@ -179,6 +195,7 @@
 				FA106D7B1C42644000E01181 /* Resources */,
 				FA4D1FAC1C5A22ED00FECA62 /* Copy Files */,
 				FA4D1FAE1C5A234300FECA62 /* Copy Sourcekit's Swift Dependencies */,
+				FA7E5C121C5CFD7D00C77EA8 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -267,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA106DA21C4272BA00E01181 /* Response.swift in Sources */,
+				FA7E5C151C5CFEF700C77EA8 /* CursorInfo.swift in Sources */,
 				FA25674A1C444A1A000EEB38 /* Diagnostics.swift in Sources */,
 				FA5257711C4D124100EF4212 /* SwiftLangSupport.swift in Sources */,
 				FA5257731C4D14B300EF4212 /* CodeCompletion.swift in Sources */,

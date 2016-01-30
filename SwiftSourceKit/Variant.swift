@@ -44,6 +44,10 @@ public struct Variant {
         return Int(sourcekitd_variant_dictionary_get_int64(variant, key))
     }
 
+    public subscript(BoolForKey key: sourcekitd_uid_t) -> Bool {
+        return sourcekitd_variant_dictionary_get_bool(variant, key)
+    }
+
     public subscript(StringForKey key: sourcekitd_uid_t) -> String {
         guard let str = String.fromCString(sourcekitd_variant_dictionary_get_string(variant, key)) else {
             return ""

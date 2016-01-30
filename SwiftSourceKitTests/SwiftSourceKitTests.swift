@@ -153,6 +153,68 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
             XCTFail()
         }
     }
+
+    func testCursorInfo() {
+        let filename = NSBundle(forClass: self.dynamicType).pathForResource("test", ofType: "swift")!
+
+        do {
+            let request = Request.createCursorInfoRequestForFile(filename, offset: 9, compilerArgs: [filename])
+            do {
+                let response = try request.sendAndWaitForResponse()
+                guard let info = CursorInfo(variant: response.value) else {
+                    XCTFail()
+                    return
+                }
+                XCTAssertEqual(info.kind, SourceSwiftRefStruct)
+                XCTAssertEqual(info.name, "Int")
+                XCTAssertEqual(info.usr, "s:Si")
+                XCTAssertEqual(info.filepath, "")
+                XCTAssertEqual(info.offset, nil)
+                XCTAssertEqual(info.length, nil)
+                XCTAssertEqual(info.typename, "Int.Type")
+                XCTAssertEqual(info.isSystem, true)
+                XCTAssertEqual(info.modulename, "Swift")
+            } catch {
+                XCTFail()
+            }
+        }
+
+        do {
+            let request = Request.createCursorInfoRequestForFile(filename, offset: 0, compilerArgs: [filename])
+            do {
+                let response = try request.sendAndWaitForResponse()
+                guard CursorInfo(variant: response.value) == nil else {
+                    XCTFail()
+                    return
+                }
+            } catch {
+                XCTFail()
+            }
+        }
+
+        do {
+            let request = Request.createCursorInfoRequestForFile(filename, offset: 24, compilerArgs: [filename])
+            do {
+                let response = try request.sendAndWaitForResponse()
+                print(response.description)
+                guard let info = CursorInfo(variant: response.value) else {
+                    XCTFail()
+                    return
+                }
+                XCTAssertEqual(info.kind, SourceSwiftRefVarGlobal)
+                XCTAssertEqual(info.name, "a")
+                XCTAssertEqual(info.usr, "s:v4test1aSi")
+                XCTAssertEqual(info.filepath, filename)
+                XCTAssertEqual(info.offset, 4)
+                XCTAssertEqual(info.length, 1)
+                XCTAssertEqual(info.typename, "Int")
+                XCTAssertEqual(info.isSystem, false)
+                XCTAssertEqual(info.modulename, "")
+            } catch {
+                XCTFail()
+            }
+        }
+    }
 }
 
 func verifyDiagnostic(diag: Diagnostic, expected: Diagnostic) {
