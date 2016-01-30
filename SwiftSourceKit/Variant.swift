@@ -3,7 +3,6 @@
 //  SwiftSourceKit
 //
 
-import Foundation
 import sourcekitd
 
 public struct Variant {
