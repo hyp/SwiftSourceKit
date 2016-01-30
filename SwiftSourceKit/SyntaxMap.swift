@@ -7,15 +7,8 @@ import sourcekitd
 
 // Represents an element of a syntax map.
 public struct SyntaxToken {
-    public enum Kind {
-        case Keyword
-        case Identifier
-        case Number
-        case String
-        case Comment
-        case Other
-    }
-    public let kind: Kind
+    public typealias KindUID = sourcekitd_uid_t
+    public let kind: KindUID
     public let offset: Int
     public let length: Int
 }
@@ -41,7 +34,7 @@ public struct SyntaxMapGenerator: GeneratorType {
         let kind = sourcekitd_variant_dictionary_get_uid(value, KeyKind)
         let offset = sourcekitd_variant_dictionary_get_int64(value, KeyOffset)
         let length = sourcekitd_variant_dictionary_get_int64(value, KeyLength)
-        return SyntaxToken(kind: getTokenKind(kind), offset: Int(offset), length: Int(length))
+        return SyntaxToken(kind: kind, offset: Int(offset), length: Int(length))
     }
 }
 
@@ -61,16 +54,3 @@ public struct SyntaxMap: SequenceType {
         return SyntaxMapGenerator(array: variant.variant)
     }
 }
-
-private func getTokenKind(kind: sourcekitd_uid_t) -> SyntaxToken.Kind {
-    switch kind {
-    case SourceLangSwiftKeyword: return .Keyword
-    case SourceLangSwiftIdentifier: return .Identifier
-    case SourceLangSwiftNumber: return .Number
-    case SourceLangSwiftString: return .String
-    case SourceLangSwiftComment: return .Comment
-    default:
-        return .Other
-    }
-}
-

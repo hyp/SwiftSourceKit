@@ -64,7 +64,7 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
             let syntaxmap = value[VariantForKey: KeySyntaxMap]
             XCTAssertEqual(syntaxmap.type, Variant.VariantType.Array)
             let tokens = Array(try! SyntaxMap(variant: syntaxmap))
-            let expectedTokens = [ SyntaxToken(kind: .Keyword, offset: 0, length: 3), SyntaxToken(kind: .Identifier, offset: 4, length: 1), SyntaxToken(kind: .Identifier, offset: 8, length: 3), SyntaxToken(kind: .Number, offset: 12, length: 2), SyntaxToken(kind: .Keyword, offset: 17, length: 3), SyntaxToken(kind: .Identifier, offset: 21, length: 1), SyntaxToken(kind: .String, offset: 25, length: 3), SyntaxToken(kind: .Comment, offset: 29, length: 9) ]
+            let expectedTokens = [ SyntaxToken(kind: SourceLangSwiftKeyword, offset: 0, length: 3), SyntaxToken(kind: SourceLangSwiftIdentifier, offset: 4, length: 1), SyntaxToken(kind: SourceLangSwiftIdentifier, offset: 8, length: 3), SyntaxToken(kind: SourceLangSwiftNumber, offset: 12, length: 2), SyntaxToken(kind: SourceLangSwiftKeyword, offset: 17, length: 3), SyntaxToken(kind: SourceLangSwiftIdentifier, offset: 21, length: 1), SyntaxToken(kind: SourceLangSwiftString, offset: 25, length: 3), SyntaxToken(kind: SourceLangSwiftComment, offset: 29, length: 9) ]
             XCTAssertEqual(tokens.count, expectedTokens.count)
             for (token, expected) in zip(tokens, expectedTokens) {
                 XCTAssertEqual(token.kind, expected.kind)
