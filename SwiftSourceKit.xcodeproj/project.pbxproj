@@ -24,6 +24,8 @@
 		FA622FD61C432209001E8CFF /* Variant.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA622FD51C432209001E8CFF /* Variant.swift */; };
 		FA7E5C131C5CFD8700C77EA8 /* test.swift in CopyFiles */ = {isa = PBXBuildFile; fileRef = FA7E5C0E1C5CFC8E00C77EA8 /* test.swift */; };
 		FA7E5C151C5CFEF700C77EA8 /* CursorInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7E5C141C5CFEF700C77EA8 /* CursorInfo.swift */; };
+		FAA835BC1C65365A0028D6EE /* DocumentEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA835BB1C65365A0028D6EE /* DocumentEntities.swift */; };
+		FAA835BE1C653D3D0028D6EE /* DocumentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA835BD1C653D3D0028D6EE /* DocumentInfo.swift */; };
 		FAFDC2571C43AE1F009575FA /* sourcekitd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFDC2561C43AE1F009575FA /* sourcekitd.framework */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +83,8 @@
 		FA622FD51C432209001E8CFF /* Variant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variant.swift; sourceTree = "<group>"; usesTabs = 0; };
 		FA7E5C0E1C5CFC8E00C77EA8 /* test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		FA7E5C141C5CFEF700C77EA8 /* CursorInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CursorInfo.swift; sourceTree = "<group>"; };
+		FAA835BB1C65365A0028D6EE /* DocumentEntities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentEntities.swift; sourceTree = "<group>"; };
+		FAA835BD1C653D3D0028D6EE /* DocumentInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentInfo.swift; sourceTree = "<group>"; };
 		FAFDC2561C43AE1F009575FA /* sourcekitd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sourcekitd.framework; path = "../build/Ninja-DebugAssert/swift-macosx-x86_64/lib/sourcekitd.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,6 +144,8 @@
 				FA2567491C444A1A000EEB38 /* Diagnostics.swift */,
 				FA5257721C4D14B300EF4212 /* CodeCompletion.swift */,
 				FA7E5C141C5CFEF700C77EA8 /* CursorInfo.swift */,
+				FAA835BB1C65365A0028D6EE /* DocumentEntities.swift */,
+				FAA835BD1C653D3D0028D6EE /* DocumentInfo.swift */,
 			);
 			path = SwiftSourceKit;
 			sourceTree = "<group>";
@@ -290,6 +296,8 @@
 				FA5257731C4D14B300EF4212 /* CodeCompletion.swift in Sources */,
 				FA106D9E1C42686E00E01181 /* SourceKitUIDS.swift in Sources */,
 				FA106DA41C4276ED00E01181 /* SourceKit.swift in Sources */,
+				FAA835BC1C65365A0028D6EE /* DocumentEntities.swift in Sources */,
+				FAA835BE1C653D3D0028D6EE /* DocumentInfo.swift in Sources */,
 				FA35B99D1C428E3E00BAF98E /* ResponseError.swift in Sources */,
 				FA106DA01C4269E400E01181 /* Request.swift in Sources */,
 				FA622FD61C432209001E8CFF /* Variant.swift in Sources */,

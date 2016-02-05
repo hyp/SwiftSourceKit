@@ -35,6 +35,10 @@ public struct Variant {
     init(variant: sourcekitd_variant_t) {
         self.variant = variant
     }
+    init(dictionary: sourcekitd_variant_t) {
+        assert(sourcekitd_variant_get_type(dictionary) == SOURCEKITD_VARIANT_TYPE_DICTIONARY)
+        variant = dictionary
+    }
 
     public subscript(UIDForKey key: sourcekitd_uid_t) -> sourcekitd_uid_t {
         return sourcekitd_variant_dictionary_get_uid(variant, key)

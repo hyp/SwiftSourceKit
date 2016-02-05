@@ -215,6 +215,30 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
             }
         }
     }
+
+    func testDocumentInfo() {
+        let request = Request.createDocumentInfoRequestForModule("Swift")
+        do {
+            let response = try request.sendAndWaitForResponse()
+            guard let entities = response.documentEntities else {
+                XCTFail()
+                return
+            }
+            for entity in entities {
+                if (entity.name == "Bool") {
+                    XCTAssert(entity.kind == SourceSwiftDeclStruct)
+                    XCTAssert(entity.usr == "s:Sb")
+                    XCTAssertFalse(entity.docAsXML.isEmpty)
+                    XCTAssertNil(entity.extends)
+                    XCTAssertNotNil(entity.entities)
+                    return
+                }
+            }
+            XCTFail()
+        } catch {
+            XCTFail()
+        }
+    }
 }
 
 func verifyDiagnostic(diag: Diagnostic, expected: Diagnostic) {
