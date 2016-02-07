@@ -46,6 +46,10 @@ public struct Entity {
         return Entities(value: value)
     }
 
+    public var isUnavailable: Bool {
+        return variant[BoolForKey: KeyIsUnavailable]
+    }
+
     public var description: String {
         return variant.description
     }

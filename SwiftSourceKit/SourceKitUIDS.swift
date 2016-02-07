@@ -49,6 +49,7 @@ public let KeyNumBytesToErase = sourcekitd_uid_get_from_cstr("key.num_bytes_to_e
 public let KeyExtends = sourcekitd_uid_get_from_cstr("key.extends")
 public let KeyGenericParams = sourcekitd_uid_get_from_cstr("key.generic_params")
 public let KeyGenericRequirements = sourcekitd_uid_get_from_cstr("key.generic_requirements")
+public let KeyIsUnavailable = sourcekitd_uid_get_from_cstr("key.is_unavailable")
 
 public let RequestIndex = sourcekitd_uid_get_from_cstr("source.request.indexsource")
 public let RequestCodeComplete = sourcekitd_uid_get_from_cstr("source.request.codecomplete")
