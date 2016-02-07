@@ -47,7 +47,8 @@ public struct Entity {
     }
 
     public var isUnavailable: Bool {
-        return variant[BoolForKey: KeyIsUnavailable]
+        /// For some reason source kit stores this as integer ¯\_(ツ)_/¯.
+        return variant[IntForKey: KeyIsUnavailable] != 0
     }
 
     public var description: String {
