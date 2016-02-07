@@ -46,6 +46,10 @@ public struct Entity {
         return Entities(value: value)
     }
 
+    public var description: String {
+        return variant.description
+    }
+
     // Missing properties:
     // generic params(name, inherits)
     // generic requirements.
