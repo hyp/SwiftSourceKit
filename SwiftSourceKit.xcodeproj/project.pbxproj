@@ -26,7 +26,6 @@
 		FA7E5C151C5CFEF700C77EA8 /* CursorInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7E5C141C5CFEF700C77EA8 /* CursorInfo.swift */; };
 		FAA835BC1C65365A0028D6EE /* DocumentEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA835BB1C65365A0028D6EE /* DocumentEntities.swift */; };
 		FAA835BE1C653D3D0028D6EE /* DocumentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA835BD1C653D3D0028D6EE /* DocumentInfo.swift */; };
-		FAFDC2571C43AE1F009575FA /* sourcekitd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFDC2561C43AE1F009575FA /* sourcekitd.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,7 +92,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAFDC2571C43AE1F009575FA /* sourcekitd.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
