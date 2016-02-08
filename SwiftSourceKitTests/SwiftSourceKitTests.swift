@@ -228,6 +228,8 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
                 if (entity.name == "Bool") {
                     XCTAssert(entity.kind == SourceSwiftDeclStruct)
                     XCTAssert(entity.usr == "s:Sb")
+                    XCTAssert(entity.offset > 0)
+                    XCTAssert(entity.length > 0)
                     XCTAssertFalse(entity.docAsXML.isEmpty)
                     XCTAssertNil(entity.extends)
                     XCTAssertNotNil(entity.entities)

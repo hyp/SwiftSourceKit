@@ -26,6 +26,14 @@ public struct Entity {
         return variant[StringForKey: KeyUSR]
     }
 
+    public var offset: Int {
+        return variant[IntForKey: KeyOffset]
+    }
+
+    public var length: Int {
+        return variant[IntForKey: KeyLength]
+    }
+
     public var docAsXML: String {
         return variant[StringForKey: KeyDocFullAsXML]
     }
@@ -58,8 +66,6 @@ public struct Entity {
     // Missing properties:
     // generic params(name, inherits)
     // generic requirements.
-    // offset.
-    // length.
     // conforms.
 }
 
