@@ -5,6 +5,26 @@
 
 import sourcekitd
 
+/// An entry in the Entity.conforms array.
+public struct EntityConformsEntry {
+    private let variant: Variant
+    private init(value: sourcekitd_variant_t) {
+        variant = Variant(dictionary: value)
+    }
+
+    public var kind: sourcekitd_uid_t {
+        return variant[UIDForKey: KeyKind]
+    }
+
+    public var name: String {
+        return variant[StringForKey: KeyName]
+    }
+
+    public var usr: String {
+        return variant[StringForKey: KeyUSR]
+    }
+}
+
 /// \brief A document entity.
 ///
 /// Its lifetime is tied to the Response object that it came from.
@@ -63,10 +83,23 @@ public struct Entity {
         return variant.description
     }
 
+    public var conforms: [EntityConformsEntry]? {
+        let value = sourcekitd_variant_dictionary_get_value(variant.variant, KeyConforms)
+        guard sourcekitd_variant_get_type(value) == SOURCEKITD_VARIANT_TYPE_ARRAY else {
+            return nil
+        }
+        return (0..<sourcekitd_variant_array_get_count(value)).flatMap {
+            let childValue = sourcekitd_variant_array_get_value(value, $0)
+            guard sourcekitd_variant_get_type(childValue) == SOURCEKITD_VARIANT_TYPE_DICTIONARY else {
+                return nil
+            }
+            return EntityConformsEntry(value: childValue)
+        }
+    }
+
     // Missing properties:
     // generic params(name, inherits)
     // generic requirements.
-    // conforms.
 }
 
 /// \brief Document entity extension info (Used for Swift extension declaration).
