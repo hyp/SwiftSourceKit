@@ -12,7 +12,7 @@ let srcRoot = Process.arguments[1]
 let builtProductsDir = Process.arguments[2]
 
 var moduleFiles = ["libswiftCore.dylib", "libswiftSwiftPrivate.dylib", "libswiftSwiftPrivateDarwinExtras.dylib", "libswiftSwiftPrivatePthreadExtras.dylib", "Swift.swiftdoc", "Swift.swiftmodule", "SwiftPrivate.swiftdoc", "SwiftPrivate.swiftmodule", "SwiftPrivateDarwinExtras.swiftdoc", "SwiftPrivateDarwinExtras.swiftmodule", "SwiftPrivatePthreadExtras.swiftdoc", "SwiftPrivatePthreadExtras.swiftmodule"]
-let paths = [(from: "swift/shims", to: "swift")]
+let paths = [(from: "swift/shims", to: "swift"), (from: "swift/clang", to: "swift")]
 
 // Parse additional parameters
 var i = 3
