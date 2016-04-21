@@ -59,20 +59,23 @@ for dir in dirs {
     mkdir(NSURL(fileURLWithPath: builtProductsDir).URLByAppendingPathComponent(dir).path!)
 }
 
-func from(path: String) -> String {
-    return NSURL(fileURLWithPath: srcRoot).URLByAppendingPathComponent("/build/Ninja-DebugAssert/swift-macosx-x86_64/lib").URLByAppendingPathComponent(path).path!
-}
-
+let frameworkPath: String
 switch dict["CONFIGURATION"]!.lowercaseString {
 case "debug":
-    print("Copying debug files")
-    for path in files {
-        copy(from(path), to: NSURL(fileURLWithPath: builtProductsDir).URLByAppendingPathComponent(path).path!)
-    }
-    for path in paths {
-        copy(from(path.from), to: NSURL(fileURLWithPath: builtProductsDir).URLByAppendingPathComponent(path.to).path!)
-    }
-    // TODO: Release build configuration
+	frameworkPath = "/build/Ninja-DebugAssert/swift-macosx-x86_64/lib"
+case "release":
+	frameworkPath = "/build/Ninja-ReleaseAssert/swift-macosx-x86_64/lib"
 default:
     fatalError("Unsupported build configuration")
+}
+
+func from(path: String) -> String {
+	return NSURL(fileURLWithPath: srcRoot).URLByAppendingPathComponent(frameworkPath).URLByAppendingPathComponent(path).path!
+}
+print("Copying debug files")
+for path in files {
+	copy(from(path), to: NSURL(fileURLWithPath: builtProductsDir).URLByAppendingPathComponent(path).path!)
+}
+for path in paths {
+	copy(from(path.from), to: NSURL(fileURLWithPath: builtProductsDir).URLByAppendingPathComponent(path.to).path!)
 }
