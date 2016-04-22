@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		FAC134391CC95FB500C7026F /* sourcekitdFramework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = FAC1343C1CC95FB500C7026F /* Build configuration list for PBXAggregateTarget "sourcekitdFramework" */;
+			buildPhases = (
+				FAC1343D1CC9600C00C7026F /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = sourcekitdFramework;
+			productName = sourcekitdFramework;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		FA106D771C42644000E01181 /* SwiftSourceKit.h in Headers */ = {isa = PBXBuildFile; fileRef = FA106D761C42644000E01181 /* SwiftSourceKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA106D7E1C42644000E01181 /* SwiftSourceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA106D731C42644000E01181 /* SwiftSourceKit.framework */; };
@@ -35,6 +49,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = FA106D721C42644000E01181;
 			remoteInfo = SwiftSourceKit;
+		};
+		FAC134401CC9624400C7026F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA106D6A1C42644000E01181 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FAC134391CC95FB500C7026F;
+			remoteInfo = sourcekitdFramework;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -84,7 +105,8 @@
 		FA7E5C141C5CFEF700C77EA8 /* CursorInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CursorInfo.swift; sourceTree = "<group>"; };
 		FAA835BB1C65365A0028D6EE /* DocumentEntities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentEntities.swift; sourceTree = "<group>"; };
 		FAA835BD1C653D3D0028D6EE /* DocumentInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentInfo.swift; sourceTree = "<group>"; };
-		FAFDC2561C43AE1F009575FA /* sourcekitd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sourcekitd.framework; path = "../build/Ninja-DebugAssert/swift-macosx-x86_64/lib/sourcekitd.framework"; sourceTree = "<group>"; };
+		FAC1343F1CC960B900C7026F /* copySourcekitFramework.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = copySourcekitFramework.sh; path = scripts/copySourcekitFramework.sh; sourceTree = "<group>"; };
+		FAFDC2561C43AE1F009575FA /* sourcekitd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sourcekitd.framework; path = externalFrameworks/sourcekitd.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +134,7 @@
 				FAFDC2561C43AE1F009575FA /* sourcekitd.framework */,
 				FA106D751C42644000E01181 /* SwiftSourceKit */,
 				FA106D811C42644000E01181 /* SwiftSourceKitTests */,
+				FAC1343E1CC9609500C7026F /* scripts */,
 				FA106D741C42644000E01181 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -158,6 +181,14 @@
 			path = SwiftSourceKitTests;
 			sourceTree = "<group>";
 		};
+		FAC1343E1CC9609500C7026F /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				FAC1343F1CC960B900C7026F /* copySourcekitFramework.sh */,
+			);
+			name = scripts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -184,6 +215,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				FAC134411CC9624400C7026F /* PBXTargetDependency */,
 			);
 			name = SwiftSourceKit;
 			productName = SwiftSourceKit;
@@ -227,6 +259,9 @@
 					FA106D7C1C42644000E01181 = {
 						CreatedOnToolsVersion = 7.2;
 					};
+					FAC134391CC95FB500C7026F = {
+						CreatedOnToolsVersion = 7.3;
+					};
 				};
 			};
 			buildConfigurationList = FA106D6D1C42644000E01181 /* Build configuration list for PBXProject "SwiftSourceKit" */;
@@ -243,6 +278,7 @@
 			targets = (
 				FA106D721C42644000E01181 /* SwiftSourceKit */,
 				FA106D7C1C42644000E01181 /* SwiftSourceKitTests */,
+				FAC134391CC95FB500C7026F /* sourcekitdFramework */,
 			);
 		};
 /* End PBXProject section */
@@ -279,6 +315,19 @@
 			shellPath = /bin/sh;
 			shellScript = "/usr/bin/swift ${SRCROOT}/scripts/copySwiftLibFiles.swift ${SRCROOT}/.. ${BUILT_PRODUCTS_DIR}";
 			showEnvVarsInLog = 0;
+		};
+		FAC1343D1CC9600C00C7026F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "/bin/sh ${SRCROOT}/scripts/copySourcekitFramework.sh";
+			shellScript = "";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -319,6 +368,11 @@
 			isa = PBXTargetDependency;
 			target = FA106D721C42644000E01181 /* SwiftSourceKit */;
 			targetProxy = FA106D7F1C42644000E01181 /* PBXContainerItemProxy */;
+		};
+		FAC134411CC9624400C7026F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FAC134391CC95FB500C7026F /* sourcekitdFramework */;
+			targetProxy = FAC134401CC9624400C7026F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -475,6 +529,20 @@
 			};
 			name = Release;
 		};
+		FAC1343A1CC95FB500C7026F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		FAC1343B1CC95FB500C7026F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -504,6 +572,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		FAC1343C1CC95FB500C7026F /* Build configuration list for PBXAggregateTarget "sourcekitdFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FAC1343A1CC95FB500C7026F /* Debug */,
+				FAC1343B1CC95FB500C7026F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
