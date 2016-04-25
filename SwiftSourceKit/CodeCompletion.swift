@@ -24,13 +24,31 @@ extension Response {
 }
 
 public struct CompletionResult {
+    private let variant: Variant
     public typealias KindUID = sourcekitd_uid_t
-    public let kind: KindUID
-    public let name: String
-    public let sourceText: String
-    public let description: String
-    public let typename: String
-    public let numBytesToErase: Int
+
+    private init(value: sourcekitd_variant_t) {
+        variant = Variant(dictionary: value)
+    }
+
+    public var kind: KindUID {
+        return variant[UIDForKey: KeyKind]
+    }
+    public var name: String {
+        return variant[StringForKey: KeyName]
+    }
+    public var sourceText: String {
+        return variant[StringForKey: KeySourceText]
+    }
+    public var description: String {
+        return variant[StringForKey: KeyDescription]
+    }
+    public var typename: String {
+        return variant[StringForKey: KeyTypename]
+    }
+    public var numBytesToErase: Int {
+        return variant[IntForKey: KeyNumBytesToErase]
+    }
 }
 
 public struct CompletionResultGenerator: GeneratorType {
@@ -51,8 +69,7 @@ public struct CompletionResultGenerator: GeneratorType {
         let value = sourcekitd_variant_array_get_value(array, nextIndex)
         nextIndex += 1
         assert(sourcekitd_variant_get_type(value) == SOURCEKITD_VARIANT_TYPE_DICTIONARY)
-        let variant = Variant(variant: value)
-        return CompletionResult(kind: variant[UIDForKey: KeyKind], name: variant[StringForKey: KeyName], sourceText: variant[StringForKey: KeySourceText], description: variant[StringForKey: KeyDescription], typename: variant[StringForKey: KeyTypename], numBytesToErase: variant[IntForKey: KeyNumBytesToErase])
+        return CompletionResult(value: value)
     }
 }
 

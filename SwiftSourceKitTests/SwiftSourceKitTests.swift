@@ -139,7 +139,15 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
             let response = try codeCompletionRequest.sendAndWaitForResponse()
             let results = Array(try CodeCompletionResults(variant: response.results))
             XCTAssertEqual(results.count, 49)
-            let expectedResults = [ (i: 0, CompletionResult(kind: SourceSwiftDeclMethodClass, name: "addWithOverflow(::)", sourceText: "addWithOverflow(<#T##lhs: Int##Int#>, <#T##rhs: Int##Int#>)", description: "addWithOverflow(lhs: Int, rhs: Int)", typename: "(Int, overflow: Bool)", numBytesToErase: 0)) ]
+            struct ExpectedCompletion {
+                let kind: CompletionResult.KindUID
+                let name: String
+                let sourceText: String
+                let description: String
+                let typename: String
+                let numBytesToErase: Int
+            }
+            let expectedResults = [ (i: 0, ExpectedCompletion(kind: SourceSwiftDeclMethodClass, name: "addWithOverflow(::)", sourceText: "addWithOverflow(<#T##lhs: Int##Int#>, <#T##rhs: Int##Int#>)", description: "addWithOverflow(lhs: Int, rhs: Int)", typename: "(Int, overflow: Bool)", numBytesToErase: 0)) ]
             for (i, expected) in expectedResults {
                 let result = results[i]
                 XCTAssertEqual(result.kind, expected.kind)
