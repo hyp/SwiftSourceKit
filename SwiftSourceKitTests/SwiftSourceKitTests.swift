@@ -146,8 +146,9 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
                 let description: String
                 let typename: String
                 let numBytesToErase: Int
+                let moduleName: String
             }
-            let expectedResults = [ (i: 0, ExpectedCompletion(kind: SourceSwiftDeclMethodClass, name: "addWithOverflow(::)", sourceText: "addWithOverflow(<#T##lhs: Int##Int#>, <#T##rhs: Int##Int#>)", description: "addWithOverflow(lhs: Int, rhs: Int)", typename: "(Int, overflow: Bool)", numBytesToErase: 0)) ]
+            let expectedResults = [ (i: 0, ExpectedCompletion(kind: SourceSwiftDeclMethodClass, name: "addWithOverflow(::)", sourceText: "addWithOverflow(<#T##lhs: Int##Int#>, <#T##rhs: Int##Int#>)", description: "addWithOverflow(lhs: Int, rhs: Int)", typename: "(Int, overflow: Bool)", numBytesToErase: 0, moduleName: "Swift")) ]
             for (i, expected) in expectedResults {
                 let result = results[i]
                 XCTAssertEqual(result.kind, expected.kind)
@@ -156,6 +157,7 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
                 XCTAssertEqual(result.description, expected.description)
                 XCTAssertEqual(result.typename, expected.typename)
                 XCTAssertEqual(result.numBytesToErase, expected.numBytesToErase)
+                XCTAssertEqual(result.moduleName, expected.moduleName)
             }
         } catch {
             XCTFail()

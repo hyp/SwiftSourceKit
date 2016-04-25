@@ -49,6 +49,9 @@ public struct CompletionResult {
     public var numBytesToErase: Int {
         return variant[IntForKey: KeyNumBytesToErase]
     }
+    public var moduleName: String {
+        return variant[StringForKey: KeyModuleName]
+    }
 }
 
 public struct CompletionResultGenerator: GeneratorType {
