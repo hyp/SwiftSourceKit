@@ -22,17 +22,17 @@ public struct Diagnostic {
     public let stage: StageKind
     public let line: Int
     public let column: Int
-    public let filepath: String
+    public let filePath: String
     public let description: String
     public let diagnostics: [Diagnostic]
     public let fixits: [DiagnosticFixit]
 
-    public init(kind: Kind, stage: StageKind, line: Int, column: Int, filepath: String, description: String, diagnostics: [Diagnostic] = [], fixits: [DiagnosticFixit] = []) {
+    public init(kind: Kind, stage: StageKind, line: Int, column: Int, filePath: String, description: String, diagnostics: [Diagnostic] = [], fixits: [DiagnosticFixit] = []) {
         self.kind = kind
         self.stage = stage
         self.line = line
         self.column = column
-        self.filepath = filepath
+        self.filePath = filePath
         self.description = description
         self.diagnostics = diagnostics
         self.fixits = fixits
@@ -64,7 +64,7 @@ public struct DiagnosticGenerator: GeneratorType {
         nextIndex += 1
         assert(sourcekitd_variant_get_type(value) == SOURCEKITD_VARIANT_TYPE_DICTIONARY)
         let variant = Variant(variant: value)
-        let filepath = variant[StringForKey: KeyFilePath]
+        let filePath = variant[StringForKey: KeyFilePath]
         let line = Int(sourcekitd_variant_dictionary_get_int64(value, KeyLine))
         let column = Int(sourcekitd_variant_dictionary_get_int64(value, KeyColumn))
         let severity = sourcekitd_variant_dictionary_get_uid(value, KeySeverity)
@@ -80,7 +80,7 @@ public struct DiagnosticGenerator: GeneratorType {
             let value = sourcekitd_variant_array_get_value(fixitsArray, i)
             return DiagnosticFixit(offset: Int(sourcekitd_variant_dictionary_get_int64(value, KeyOffset)), length: Int(sourcekitd_variant_dictionary_get_int64(value, KeyLength)), sourceText: Variant(variant: value)[StringForKey: KeySourceText])
             }
-        return Diagnostic(kind: getDiagnosticKind(severity), stage: getDiagnosticStageKind(stage), line: line, column: column, filepath: filepath, description: description, diagnostics: diags, fixits: fixits)
+        return Diagnostic(kind: getDiagnosticKind(severity), stage: getDiagnosticStageKind(stage), line: line, column: column, filePath: filePath, description: description, diagnostics: diags, fixits: fixits)
     }
 }
 

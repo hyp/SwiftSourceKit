@@ -10,7 +10,7 @@ public struct CursorInfo {
     public let kind: KindUID
     public let name: String
     public let usr: String
-    public let filepath: String
+    public let filePath: String
     public let offset: Int?
     public let length: Int?
     public let typename: String
@@ -24,7 +24,7 @@ public struct CursorInfo {
         name = variant[StringForKey: KeyName]
         usr = variant[StringForKey: KeyUSR]
         typename = variant[StringForKey: KeyTypename]
-        filepath = variant[StringForKey: KeyFilePath]
+        filePath = variant[StringForKey: KeyFilePath]
         let len = variant[IntForKey: KeyLength]
         if len != 0 {
             offset = variant[IntForKey: KeyOffset]
