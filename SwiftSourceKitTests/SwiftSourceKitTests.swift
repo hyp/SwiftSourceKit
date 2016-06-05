@@ -6,6 +6,28 @@
 import XCTest
 @testable import SwiftSourceKit
 
+struct TestDiagnostic {
+    let kind: Diagnostic.Kind
+    let stage: Diagnostic.StageKind
+    let line: Int
+    let column: Int
+    let filePath: String
+    let description: String
+    let diagnostics: [TestDiagnostic]
+    let fixits: [DiagnosticFixit]
+
+    init(kind: Diagnostic.Kind, stage: Diagnostic.StageKind, line: Int, column: Int, filePath: String, description: String, diagnostics: [TestDiagnostic] = [], fixits: [DiagnosticFixit] = []) {
+        self.kind = kind
+        self.stage = stage
+        self.line = line
+        self.column = column
+        self.filePath = filePath
+        self.description = description
+        self.diagnostics = diagnostics
+        self.fixits = fixits
+    }
+}
+
 class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
 
     override func setUp() {
@@ -121,8 +143,8 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
         XCTAssertEqual(diags.type, Variant.VariantType.Array)
         let diagnostics = Array(try! Diagnostics(variant: diags))
         let expectedDiagnostics = [
-            Diagnostic(kind: .Error, stage: .Parse, line: 2, column: 5, filepath: "testSema.swift", description: "expected pattern"),
-            Diagnostic(kind: .Error, stage: .Sema, line: 1, column: 15, filepath: "testSema.swift", description: "cannot assign to value: 'a' is a 'let' constant", diagnostics: [ Diagnostic(kind: .Note, stage: .Other, line: 1, column: 1, filepath: "testSema.swift", description: "change 'let' to 'var' to make it mutable", fixits: [ DiagnosticFixit(offset: 0, length: 3, sourceText: "var") ]) ])
+            TestDiagnostic(kind: .Error, stage: .Parse, line: 2, column: 5, filePath: "testSema.swift", description: "expected pattern"),
+            TestDiagnostic(kind: .Error, stage: .Sema, line: 1, column: 15, filePath: "testSema.swift", description: "cannot assign to value: 'a' is a 'let' constant", diagnostics: [ TestDiagnostic(kind: .Note, stage: .Other, line: 1, column: 1, filePath: "testSema.swift", description: "change 'let' to 'var' to make it mutable", fixits: [ DiagnosticFixit(offset: 0, length: 3, sourceText: "var") ]) ])
         ]
         XCTAssertEqual(diagnostics.count, expectedDiagnostics.count)
         for (diag, expected) in zip(diagnostics, expectedDiagnostics) {
@@ -253,16 +275,21 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
     }
 }
 
-func verifyDiagnostic(diag: Diagnostic, expected: Diagnostic) {
+func verifyDiagnostic(diag: Diagnostic, expected: TestDiagnostic) {
     XCTAssertEqual(diag.kind, expected.kind)
     XCTAssertEqual(diag.stage, expected.stage)
     XCTAssertEqual(diag.line, expected.line)
     XCTAssertEqual(diag.column, expected.column)
-    XCTAssertEqual(diag.filepath, expected.filepath)
+    XCTAssertEqual(diag.filePath, expected.filePath)
     XCTAssertEqual(diag.description, expected.description)
-    XCTAssertEqual(diag.diagnostics.count, expected.diagnostics.count)
-    for (i, j) in zip(diag.diagnostics, expected.diagnostics) {
-        verifyDiagnostic(i, expected: j)
+    if let diags = diag.diagnostics {
+        let diagnostics = Array(diags)
+        XCTAssertEqual(diagnostics.count, expected.diagnostics.count)
+        for (i, j) in zip(diagnostics, expected.diagnostics) {
+            verifyDiagnostic(i, expected: j)
+        }
+    } else {
+        XCTAssert(expected.diagnostics.isEmpty)
     }
     XCTAssertEqual(diag.fixits.count, expected.fixits.count)
     for (fixit, expected) in zip(diag.fixits, expected.fixits) {

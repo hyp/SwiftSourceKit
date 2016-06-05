@@ -18,24 +18,44 @@ public struct Diagnostic {
         case Sema
         case Other
     }
-    public let kind: Kind
-    public let stage: StageKind
-    public let line: Int
-    public let column: Int
-    public let filePath: String
-    public let description: String
-    public let diagnostics: [Diagnostic]
-    public let fixits: [DiagnosticFixit]
+    private let variant: Variant
 
-    public init(kind: Kind, stage: StageKind, line: Int, column: Int, filePath: String, description: String, diagnostics: [Diagnostic] = [], fixits: [DiagnosticFixit] = []) {
-        self.kind = kind
-        self.stage = stage
-        self.line = line
-        self.column = column
-        self.filePath = filePath
-        self.description = description
-        self.diagnostics = diagnostics
-        self.fixits = fixits
+    private init(value: sourcekitd_variant_t) {
+        variant = Variant(dictionary: value)
+    }
+
+    public var kind: Kind {
+        return getDiagnosticKind(variant[UIDForKey: KeySeverity])
+    }
+    public var stage: StageKind {
+        return getDiagnosticStageKind(variant[UIDForKey: KeyDiagnosticStage])
+    }
+    public var line: Int {
+        return variant[IntForKey: KeyLine]
+    }
+    public var column: Int {
+        return variant[IntForKey: KeyColumn]
+    }
+    public var filePath: String {
+        return variant[StringForKey: KeyFilePath]
+    }
+    public var description: String {
+        return variant[StringForKey: KeyDescription]
+    }
+    public var diagnostics: Diagnostics? {
+        let diagsArray = sourcekitd_variant_dictionary_get_value(variant.variant, KeyDiagnostics)
+        return sourcekitd_variant_get_type(diagsArray) != SOURCEKITD_VARIANT_TYPE_ARRAY ? nil :
+            try? Diagnostics(variant: Variant(variant: diagsArray))
+    }
+    public var fixits: [DiagnosticFixit] {
+        let fixitsArray = sourcekitd_variant_dictionary_get_value(variant.variant, KeyFixits)
+        let fixits = sourcekitd_variant_get_type(fixitsArray) != SOURCEKITD_VARIANT_TYPE_ARRAY ? [] :
+            (0..<sourcekitd_variant_array_get_count(fixitsArray)).map {
+                (i) -> DiagnosticFixit in
+                let value = sourcekitd_variant_array_get_value(fixitsArray, i)
+                return DiagnosticFixit(offset: Int(sourcekitd_variant_dictionary_get_int64(value, KeyOffset)), length: Int(sourcekitd_variant_dictionary_get_int64(value, KeyLength)), sourceText: Variant(variant: value)[StringForKey: KeySourceText])
+        }
+        return fixits
     }
 }
 
@@ -63,24 +83,7 @@ public struct DiagnosticGenerator: GeneratorType {
         let value = sourcekitd_variant_array_get_value(array, nextIndex)
         nextIndex += 1
         assert(sourcekitd_variant_get_type(value) == SOURCEKITD_VARIANT_TYPE_DICTIONARY)
-        let variant = Variant(variant: value)
-        let filePath = variant[StringForKey: KeyFilePath]
-        let line = Int(sourcekitd_variant_dictionary_get_int64(value, KeyLine))
-        let column = Int(sourcekitd_variant_dictionary_get_int64(value, KeyColumn))
-        let severity = sourcekitd_variant_dictionary_get_uid(value, KeySeverity)
-        let stage = sourcekitd_variant_dictionary_get_uid(value, KeyDiagnosticStage)
-        let description = variant[StringForKey: KeyDescription]
-        let diagsArray = sourcekitd_variant_dictionary_get_value(value, KeyDiagnostics)
-        let diags = sourcekitd_variant_get_type(diagsArray) != SOURCEKITD_VARIANT_TYPE_ARRAY ? [] :
-            Array(try! Diagnostics(variant: Variant(variant: diagsArray)))
-        let fixitsArray = sourcekitd_variant_dictionary_get_value(value, KeyFixits)
-        let fixits = sourcekitd_variant_get_type(fixitsArray) != SOURCEKITD_VARIANT_TYPE_ARRAY ? [] :
-            (0..<sourcekitd_variant_array_get_count(fixitsArray)).map {
-            (i) -> DiagnosticFixit in
-            let value = sourcekitd_variant_array_get_value(fixitsArray, i)
-            return DiagnosticFixit(offset: Int(sourcekitd_variant_dictionary_get_int64(value, KeyOffset)), length: Int(sourcekitd_variant_dictionary_get_int64(value, KeyLength)), sourceText: Variant(variant: value)[StringForKey: KeySourceText])
-            }
-        return Diagnostic(kind: getDiagnosticKind(severity), stage: getDiagnosticStageKind(stage), line: line, column: column, filePath: filePath, description: description, diagnostics: diags, fixits: fixits)
+        return Diagnostic(value: value)
     }
 }
 
