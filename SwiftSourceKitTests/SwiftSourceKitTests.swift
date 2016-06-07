@@ -273,6 +273,74 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
             XCTFail()
         }
     }
+
+    func testFormatting() {
+        struct TestCase {
+            let sourceText: String
+            let tabs: [String]
+            let spaces: [String]
+        }
+        let testCases = [
+            TestCase(sourceText: "class Foo {\n\nvar test : Int\n\tfunc foo(){\n3\n}\n}",
+                tabs: ["class Foo {", "\t", "\tvar test : Int", "\tfunc foo(){", "\t\t3", "\t}", "}"],
+                spaces: ["class Foo {", "  ", "  var test : Int", "  func foo(){", "    3", "  }", "}"]
+            ),
+            TestCase(sourceText: "switch 1 {\ncase 0:\nprintln(0)\ncase 1:\nprintln(1)\n}",
+                tabs: ["switch 1 {", "case 0:", "\tprintln(0)", "case 1:", "\tprintln(1)", "}"],
+                spaces: ["switch 1 {", "case 0:", "  println(0)", "case 1:", "  println(1)", "}"]
+            ),
+            TestCase(sourceText: "switch 1 {\n\tcase 0:",
+                tabs: ["switch 1 {", "case 0:"],
+                spaces: ["switch 1 {", "case 0:"]
+            ),
+            TestCase(sourceText: "for i in 0..<10 {\n",
+                tabs: ["for i in 0..<10 {", "\t"],
+                spaces: ["for i in 0..<10 {", "  "]
+            ),
+            TestCase(sourceText: "if true {\nprintln(2)\n\t}",
+                tabs: ["if true {", "\tprintln(2)", "}"],
+                spaces: ["if true {", "  println(2)", "}"]
+            ),
+        ]
+        for testCase in testCases {
+            let request = Request.createEditorOpenRequest("basicFormatTest.swift", sourceText: testCase.sourceText, enableSyntaxMap: true)
+            let tabOptions = FormattingOptions(indentWidth: 4, tabWidth: 4, useTabs: true)
+            let spaceOptons = FormattingOptions(indentWidth: 2, tabWidth: 2, useTabs: false)
+            do {
+                try request.sendAndWaitForResponse()
+            } catch {
+                XCTFail()
+            }
+            var lineNumber = 1
+            testCase.sourceText.enumerateLines { line, stop in
+                do {
+                    let request = Request.createEditorFormatRequestForLine(lineNumber, name: "basicFormatTest.swift", length: 1, options: tabOptions)
+                    let r = try request.sendAndWaitForResponse()
+                    let sourceText = r.value[StringForKey: KeySourceText]
+                    print("'\(sourceText)'")
+                    XCTAssertEqual(sourceText, testCase.tabs[lineNumber - 1])
+                } catch {
+                    XCTFail()
+                }
+                do {
+                    let request = Request.createEditorFormatRequestForLine(lineNumber, name: "basicFormatTest.swift", length: 1, options: spaceOptons)
+                    let r = try request.sendAndWaitForResponse()
+                    let sourceText = r.value[StringForKey: KeySourceText]
+                    print("'\(sourceText)'")
+                    XCTAssertEqual(sourceText, testCase.spaces[lineNumber - 1])
+                } catch {
+                    XCTFail()
+                }
+                lineNumber += 1
+            }
+            let closeRequest = Request.createEditorCloseRequest("basicFormatTest.swift")
+            do {
+                try closeRequest.sendAndWaitForResponse()
+            } catch {
+                XCTFail()
+            }
+        }
+    }
 }
 
 func verifyDiagnostic(diag: Diagnostic, expected: TestDiagnostic) {

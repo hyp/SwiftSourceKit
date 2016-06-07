@@ -36,6 +36,7 @@
 		FA5257711C4D124100EF4212 /* SwiftLangSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5257701C4D124100EF4212 /* SwiftLangSupport.swift */; };
 		FA5257731C4D14B300EF4212 /* CodeCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5257721C4D14B300EF4212 /* CodeCompletion.swift */; };
 		FA622FD61C432209001E8CFF /* Variant.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA622FD51C432209001E8CFF /* Variant.swift */; };
+		FA74EFC31D06B61D0015F69A /* Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA74EFC21D06B61D0015F69A /* Formatting.swift */; };
 		FA7E5C131C5CFD8700C77EA8 /* test.swift in CopyFiles */ = {isa = PBXBuildFile; fileRef = FA7E5C0E1C5CFC8E00C77EA8 /* test.swift */; };
 		FA7E5C151C5CFEF700C77EA8 /* CursorInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7E5C141C5CFEF700C77EA8 /* CursorInfo.swift */; };
 		FAA835BC1C65365A0028D6EE /* DocumentEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA835BB1C65365A0028D6EE /* DocumentEntities.swift */; };
@@ -101,6 +102,7 @@
 		FA5257701C4D124100EF4212 /* SwiftLangSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftLangSupport.swift; sourceTree = "<group>"; };
 		FA5257721C4D14B300EF4212 /* CodeCompletion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeCompletion.swift; sourceTree = "<group>"; };
 		FA622FD51C432209001E8CFF /* Variant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variant.swift; sourceTree = "<group>"; usesTabs = 0; };
+		FA74EFC21D06B61D0015F69A /* Formatting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formatting.swift; sourceTree = "<group>"; };
 		FA7E5C0E1C5CFC8E00C77EA8 /* test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		FA7E5C141C5CFEF700C77EA8 /* CursorInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CursorInfo.swift; sourceTree = "<group>"; };
 		FAA835BB1C65365A0028D6EE /* DocumentEntities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentEntities.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				FA7E5C141C5CFEF700C77EA8 /* CursorInfo.swift */,
 				FAA835BB1C65365A0028D6EE /* DocumentEntities.swift */,
 				FAA835BD1C653D3D0028D6EE /* DocumentInfo.swift */,
+				FA74EFC21D06B61D0015F69A /* Formatting.swift */,
 			);
 			path = SwiftSourceKit;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 				FA106DA01C4269E400E01181 /* Request.swift in Sources */,
 				FA622FD61C432209001E8CFF /* Variant.swift in Sources */,
 				FA106DA61C42787F00E01181 /* EditorRequest.swift in Sources */,
+				FA74EFC31D06B61D0015F69A /* Formatting.swift in Sources */,
 				FA13D0731C43B743005F0CA7 /* SyntaxMap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -581,6 +585,7 @@
 				FAC1343B1CC95FB500C7026F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

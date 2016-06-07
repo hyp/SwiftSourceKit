@@ -11,6 +11,7 @@ public enum RequestValue {
     case Integer(Int)
     case Boolean(Bool)
     case Array([RequestValue])
+    case Dictionary([sourcekitd_uid_t : RequestValue])
 }
 
 extension RequestValue {
@@ -30,6 +31,14 @@ extension RequestValue {
             }
             for i in objects {
                 sourcekitd_request_release(i)
+            }
+            return result
+        case Dictionary(let dictionary):
+            let result = sourcekitd_request_dictionary_create(nil, nil, 0)
+            for (key, value) in dictionary {
+                let object = value.sourcekitObject
+                sourcekitd_request_dictionary_set_value(result, key, object)
+                sourcekitd_request_release(object)
             }
             return result
         }
