@@ -317,7 +317,6 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
                     let request = Request.createEditorFormatRequestForLine(lineNumber, name: "basicFormatTest.swift", length: 1, options: tabOptions)
                     let r = try request.sendAndWaitForResponse()
                     let sourceText = r.value[StringForKey: KeySourceText]
-                    print("'\(sourceText)'")
                     XCTAssertEqual(sourceText, testCase.tabs[lineNumber - 1])
                 } catch {
                     XCTFail()
@@ -326,7 +325,6 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
                     let request = Request.createEditorFormatRequestForLine(lineNumber, name: "basicFormatTest.swift", length: 1, options: spaceOptons)
                     let r = try request.sendAndWaitForResponse()
                     let sourceText = r.value[StringForKey: KeySourceText]
-                    print("'\(sourceText)'")
                     XCTAssertEqual(sourceText, testCase.spaces[lineNumber - 1])
                 } catch {
                     XCTFail()
