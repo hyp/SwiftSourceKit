@@ -56,7 +56,7 @@ func mkdir(path: String) {
 
 let dirs = ["swift", "swift/macosx/x86_64"]
 for dir in dirs {
-    mkdir(NSURL(fileURLWithPath: builtProductsDir).URLByAppendingPathComponent(dir).path!)
+    mkdir(NSURL(fileURLWithPath: builtProductsDir).URLByAppendingPathComponent(dir)!.path!)
 }
 
 let frameworkPath: String
@@ -70,12 +70,12 @@ default:
 }
 
 func from(path: String) -> String {
-	return NSURL(fileURLWithPath: srcRoot).URLByAppendingPathComponent(frameworkPath).URLByAppendingPathComponent(path).path!
+	return NSURL(fileURLWithPath: srcRoot).URLByAppendingPathComponent(frameworkPath)!.URLByAppendingPathComponent(path)!.path!
 }
 print("Copying debug files")
 for path in files {
-	copy(from(path), to: NSURL(fileURLWithPath: builtProductsDir).URLByAppendingPathComponent(path).path!)
+	copy(from(path), to: NSURL(fileURLWithPath: builtProductsDir).URLByAppendingPathComponent(path)!.path!)
 }
 for path in paths {
-	copy(from(path.from), to: NSURL(fileURLWithPath: builtProductsDir).URLByAppendingPathComponent(path.to).path!)
+	copy(from(path.from), to: NSURL(fileURLWithPath: builtProductsDir).URLByAppendingPathComponent(path.to)!.path!)
 }
