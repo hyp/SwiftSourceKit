@@ -6,6 +6,7 @@
 
 import sourcekitd
 
+public let SourceSwiftKeyword = sourcekitd_uid_get_from_cstr("source.lang.swift.keyword")
 public let SourceSwiftDeclFunctionFree = sourcekitd_uid_get_from_cstr("source.lang.swift.decl.function.free")
 public let SourceSwiftRefFunctionFree = sourcekitd_uid_get_from_cstr("source.lang.swift.ref.function.free")
 public let SourceSwiftDeclMethodInstance = sourcekitd_uid_get_from_cstr("source.lang.swift.decl.function.method.instance")
