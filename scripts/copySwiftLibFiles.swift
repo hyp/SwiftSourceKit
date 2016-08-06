@@ -7,7 +7,7 @@ if Process.arguments.count < 3 {
     fatalError("No arguments given")
 }
 
-let dict = NSProcessInfo.processInfo().environment
+let dict = ProcessInfo.processInfo.environment
 let srcRoot = Process.arguments[1]
 let builtProductsDir = Process.arguments[2]
 
@@ -33,7 +33,7 @@ while i < Process.arguments.count {
 let files = moduleFiles.map { "swift/macosx/x86_64/" + $0 }
 
 func copy(from: String, to: String) {
-    let task = NSTask()
+    let task = Task()
     task.launchPath = "/bin/cp"
     task.arguments = ["-r", from, to]
     task.launch()
@@ -43,8 +43,8 @@ func copy(from: String, to: String) {
     }
 }
 
-func mkdir(path: String) {
-    let task = NSTask()
+func mkdir(_ path: String) {
+    let task = Task()
     task.launchPath = "/bin/mkdir"
     task.arguments = ["-p", path]
     task.launch()
@@ -56,11 +56,11 @@ func mkdir(path: String) {
 
 let dirs = ["swift", "swift/macosx/x86_64"]
 for dir in dirs {
-    mkdir(NSURL(fileURLWithPath: builtProductsDir).URLByAppendingPathComponent(dir).path!)
+    mkdir(URL(fileURLWithPath: builtProductsDir).appendingPathComponent(dir).path)
 }
 
 let frameworkPath: String
-switch dict["CONFIGURATION"]!.lowercaseString {
+switch dict["CONFIGURATION"]!.lowercased() {
 case "debug":
 	frameworkPath = "/build/Ninja-DebugAssert/swift-macosx-x86_64/lib"
 case "release":
@@ -69,13 +69,13 @@ default:
     fatalError("Unsupported build configuration")
 }
 
-func from(path: String) -> String {
-	return NSURL(fileURLWithPath: srcRoot).URLByAppendingPathComponent(frameworkPath).URLByAppendingPathComponent(path).path!
+func from(_ path: String) -> String {
+	return URL(fileURLWithPath: srcRoot).appendingPathComponent(frameworkPath).appendingPathComponent(path).path
 }
 print("Copying debug files")
 for path in files {
-	copy(from(path), to: NSURL(fileURLWithPath: builtProductsDir).URLByAppendingPathComponent(path).path!)
+    copy(from: from(path), to: URL(fileURLWithPath: builtProductsDir).appendingPathComponent(path).path)
 }
 for path in paths {
-	copy(from(path.from), to: NSURL(fileURLWithPath: builtProductsDir).URLByAppendingPathComponent(path.to).path!)
+    copy(from: from(path.from), to: URL(fileURLWithPath: builtProductsDir).appendingPathComponent(path.to).path)
 }
