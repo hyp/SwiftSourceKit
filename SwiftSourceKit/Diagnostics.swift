@@ -104,20 +104,20 @@ public class Diagnostics: Sequence {
     }
 }
 
-private func getDiagnosticKind(_ kind: sourcekitd_uid_t) -> Diagnostic.Kind {
+private func getDiagnosticKind(_ kind: sourcekitd_uid_t?) -> Diagnostic.Kind {
     switch kind {
-    case SourceDiagnosticSeverityError: return .error
-    case SourceDiagnosticSeverityWarning: return .warning
-    case SourceDiagnosticSeverityNote: return .note
+    case SourceDiagnosticSeverityError?: return .error
+    case SourceDiagnosticSeverityWarning?: return .warning
+    case SourceDiagnosticSeverityNote?: return .note
     default:
         return .other
     }
 }
 
-private func getDiagnosticStageKind(_ kind: sourcekitd_uid_t) -> Diagnostic.StageKind {
+private func getDiagnosticStageKind(_ kind: sourcekitd_uid_t?) -> Diagnostic.StageKind {
     switch kind {
-    case SourceDiagnosticStageSwiftParse: return .parse
-    case SourceDiagnosticStageSwiftSema: return .sema
+    case SourceDiagnosticStageSwiftParse?: return .parse
+    case SourceDiagnosticStageSwiftSema?: return .sema
     default:
         return .other
     }

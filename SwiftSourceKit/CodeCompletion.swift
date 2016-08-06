@@ -31,7 +31,7 @@ public struct CompletionResult {
         variant = Variant(dictionary: value)
     }
 
-    public var kind: KindUID {
+    public var kind: KindUID? {
         return variant[UIDForKey: KeyKind]
     }
     public var name: String {

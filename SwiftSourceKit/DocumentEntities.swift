@@ -12,7 +12,7 @@ public struct EntityConformsEntry {
         variant = Variant(dictionary: value)
     }
 
-    public var kind: sourcekitd_uid_t {
+    public var kind: sourcekitd_uid_t? {
         return variant[UIDForKey: KeyKind]
     }
 
@@ -34,7 +34,7 @@ public struct Entity {
         variant = Variant(dictionary: value)
     }
 
-    public var kind: sourcekitd_uid_t {
+    public var kind: sourcekitd_uid_t? {
         return variant[UIDForKey: KeyKind]
     }
 
@@ -111,7 +111,7 @@ public struct EntityExtensionInfo {
         variant = Variant(dictionary: value)
     }
 
-    public var kind: sourcekitd_uid_t {
+    public var kind: sourcekitd_uid_t? {
         return variant[UIDForKey: KeyKind]
     }
 

@@ -40,7 +40,7 @@ public struct Variant {
         variant = dictionary
     }
 
-    public subscript(UIDForKey key: sourcekitd_uid_t) -> sourcekitd_uid_t {
+    public subscript(UIDForKey key: sourcekitd_uid_t) -> sourcekitd_uid_t? {
         return sourcekitd_variant_dictionary_get_uid(variant, key)
     }
 
