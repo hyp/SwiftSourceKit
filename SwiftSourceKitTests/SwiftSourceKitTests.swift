@@ -35,22 +35,22 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
         SourceKit.sharedInstance.delegate = self
     }
 
-    func sourceKitDidReceiveError(error: ResponseError) {
+    func sourceKitDidReceiveError(_ error: ResponseError) {
         XCTFail()
     }
 
     var semaResponseHandler: ((Response) -> ())?
 
-    func sourceKitDidReceiveNotification(response: Response) {
+    func sourceKitDidReceiveNotification(_ response: Response) {
         let value = response.value
         let kind = value[UIDForKey: KeyNotification]
         let name = value[StringForKey: KeyName]
         if kind == NotificationDocumentUpdate {
             print("document update \(name)")
             let request = Request(dictionary: [
-                KeyRequest: .UID(RequestEditorReplaceText),
-                KeyName: .Str(name),
-                KeySourceText: .Str("")
+                KeyRequest: .uid(RequestEditorReplaceText),
+                KeyName: .str(name),
+                KeySourceText: .str("")
                 ])
             do {
                 let semaResponse = try request.sendAndWaitForResponse()
@@ -84,7 +84,7 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
             let value = response.value
             print(value.type)
             let syntaxmap = value[VariantForKey: KeySyntaxMap]
-            XCTAssertEqual(syntaxmap.type, Variant.VariantType.Array)
+            XCTAssertEqual(syntaxmap.type, Variant.VariantType.array)
             let tokens = Array(try! SyntaxMap(variant: syntaxmap))
             let expectedTokens = [ SyntaxToken(kind: SourceLangSwiftKeyword, offset: 0, length: 3), SyntaxToken(kind: SourceLangSwiftIdentifier, offset: 4, length: 1), SyntaxToken(kind: SourceLangSwiftIdentifier, offset: 8, length: 3), SyntaxToken(kind: SourceLangSwiftNumber, offset: 12, length: 2), SyntaxToken(kind: SourceLangSwiftKeyword, offset: 17, length: 3), SyntaxToken(kind: SourceLangSwiftIdentifier, offset: 21, length: 1), SyntaxToken(kind: SourceLangSwiftString, offset: 25, length: 3), SyntaxToken(kind: SourceLangSwiftComment, offset: 29, length: 9) ]
             XCTAssertEqual(tokens.count, expectedTokens.count)
@@ -99,12 +99,12 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
     }
 
     func testResponseError() {
-        let request = Request(dictionary: [ KeyRequest: .UID(RequestEditorOpen) ])
+        let request = Request(dictionary: [ KeyRequest: .uid(RequestEditorOpen) ])
         do {
             try request.sendAndWaitForResponse()
             XCTFail()
         } catch let error as ResponseError {
-            XCTAssertEqual(error.errorKind, ResponseError.ErrorKind.RequestInvalid)
+            XCTAssertEqual(error.errorKind, ResponseError.ErrorKind.requestInvalid)
             XCTAssertEqual(error.description, "missing 'key.name'")
         } catch _ {
             XCTFail()
@@ -128,9 +128,9 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
         }
 
         // Instead of using the never returning dispatch_main, we can use the NSRunLoop.
-        let loopUntil = NSDate(timeIntervalSinceNow: 10)
+        let loopUntil = Date(timeIntervalSinceNow: 10)
         while loopUntil.timeIntervalSinceNow > 0 {
-            NSRunLoop.currentRunLoop().runMode(NSDefaultRunLoopMode, beforeDate: loopUntil)
+            RunLoop.current.run(mode: .defaultRunLoopMode, before: loopUntil)
         }
 
         guard let response = semaResponse else {
@@ -140,11 +140,11 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
         XCTAssertEqual(response.description, "{\n  key.annotations: [\n    {\n      key.kind: source.lang.swift.ref.var.global,\n      key.offset: 12,\n      key.length: 1\n    },\n    {\n      key.kind: source.lang.swift.ref.struct,\n      key.offset: 16,\n      key.length: 3,\n      key.is_system: 1\n    }\n  ],\n  key.diagnostic_stage: source.diagnostic.stage.swift.sema,\n  key.syntaxmap: [\n  ],\n  key.diagnostics: [\n    {\n      key.line: 2,\n      key.column: 5,\n      key.filepath: \"testSema.swift\",\n      key.severity: source.diagnostic.severity.error,\n      key.description: \"expected pattern\",\n      key.diagnostic_stage: source.diagnostic.stage.swift.parse\n    },\n    {\n      key.line: 1,\n      key.column: 15,\n      key.filepath: \"testSema.swift\",\n      key.severity: source.diagnostic.severity.error,\n      key.description: \"cannot assign to value: \'a\' is a \'let\' constant\",\n      key.diagnostic_stage: source.diagnostic.stage.swift.sema,\n      key.ranges: [\n        {\n          key.offset: 12,\n          key.length: 1\n        }\n      ],\n      key.diagnostics: [\n        {\n          key.line: 1,\n          key.column: 1,\n          key.filepath: \"testSema.swift\",\n          key.severity: source.diagnostic.severity.note,\n          key.description: \"change \'let\' to \'var\' to make it mutable\",\n          key.fixits: [\n            {\n              key.offset: 0,\n              key.length: 3,\n              key.sourcetext: \"var\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}")
         let value = response.value
         let diags = value[VariantForKey: KeyDiagnostics]
-        XCTAssertEqual(diags.type, Variant.VariantType.Array)
+        XCTAssertEqual(diags.type, Variant.VariantType.array)
         let diagnostics = Array(try! Diagnostics(variant: diags))
         let expectedDiagnostics = [
-            TestDiagnostic(kind: .Error, stage: .Parse, line: 2, column: 5, filePath: "testSema.swift", description: "expected pattern"),
-            TestDiagnostic(kind: .Error, stage: .Sema, line: 1, column: 15, filePath: "testSema.swift", description: "cannot assign to value: 'a' is a 'let' constant", diagnostics: [ TestDiagnostic(kind: .Note, stage: .Other, line: 1, column: 1, filePath: "testSema.swift", description: "change 'let' to 'var' to make it mutable", fixits: [ DiagnosticFixit(offset: 0, length: 3, sourceText: "var") ]) ])
+            TestDiagnostic(kind: .error, stage: .parse, line: 2, column: 5, filePath: "testSema.swift", description: "expected pattern"),
+            TestDiagnostic(kind: .error, stage: .sema, line: 1, column: 15, filePath: "testSema.swift", description: "cannot assign to value: 'a' is a 'let' constant", diagnostics: [ TestDiagnostic(kind: .note, stage: .other, line: 1, column: 1, filePath: "testSema.swift", description: "change 'let' to 'var' to make it mutable", fixits: [ DiagnosticFixit(offset: 0, length: 3, sourceText: "var") ]) ])
         ]
         XCTAssertEqual(diagnostics.count, expectedDiagnostics.count)
         for (diag, expected) in zip(diagnostics, expectedDiagnostics) {
@@ -187,7 +187,7 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
     }
 
     func testCursorInfo() {
-        let filename = NSBundle(forClass: self.dynamicType).pathForResource("test", ofType: "swift")!
+        let filename = Bundle(for: self.dynamicType).path(forResource: "test", ofType: "swift")!
 
         do {
             let request = Request.createCursorInfoRequestForFile(filename, offset: 9, compilerArgs: [filename])
@@ -341,7 +341,7 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
     }
 }
 
-func verifyDiagnostic(diag: Diagnostic, expected: TestDiagnostic) {
+func verifyDiagnostic(_ diag: Diagnostic, expected: TestDiagnostic) {
     XCTAssertEqual(diag.kind, expected.kind)
     XCTAssertEqual(diag.stage, expected.stage)
     XCTAssertEqual(diag.line, expected.line)

@@ -6,8 +6,8 @@
 import sourcekitd
 
 public protocol SourceKitDelegate: class {
-    func sourceKitDidReceiveError(error: ResponseError)
-    func sourceKitDidReceiveNotification(response: Response)
+    func sourceKitDidReceiveError(_ error: ResponseError)
+    func sourceKitDidReceiveNotification(_ response: Response)
 }
 
 public final class SourceKit {
@@ -18,6 +18,10 @@ public final class SourceKit {
         sourcekitd_initialize()
         sourcekitd_set_notification_handler {
             (response) in
+            guard let response = response else {
+                assertionFailure()
+                return
+            }
             if sourcekitd_response_is_error(response) {
                 let error = ResponseError(response: response)
                 self.delegate?.sourceKitDidReceiveError(error)

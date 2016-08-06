@@ -127,7 +127,7 @@ public struct EntityExtensionInfo {
 /// \brief A collection of document entities.
 ///
 /// Its lifetime is tied to the Response object that it came from.
-public class Entities: SequenceType {
+public class Entities: Sequence {
     private let value: sourcekitd_variant_t
 
     init(value: sourcekitd_variant_t) {
@@ -135,12 +135,12 @@ public class Entities: SequenceType {
         self.value = value
     }
 
-    public func generate() -> EntityGenerator {
+    public func makeIterator() -> EntityGenerator {
         return EntityGenerator(array: value)
     }
 }
 
-public struct EntityGenerator: GeneratorType {
+public struct EntityGenerator: IteratorProtocol {
     private let array: sourcekitd_variant_t
     private let count: Int
     private var nextIndex = 0

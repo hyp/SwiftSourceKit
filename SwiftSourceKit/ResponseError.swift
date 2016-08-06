@@ -5,7 +5,7 @@
 
 import sourcekitd
 
-public final class ResponseError: ErrorType {
+public final class ResponseError: Error {
     private let response: sourcekitd_response_t
     
     init(response: sourcekitd_response_t) {
@@ -17,29 +17,29 @@ public final class ResponseError: ErrorType {
     }
     
     public var description: String {
-        guard let str = String.fromCString(sourcekitd_response_error_get_description(response)) else {
+        guard let str = String(validatingUTF8: sourcekitd_response_error_get_description(response)) else {
             return ""
         }
         return str
     }
     
     public enum ErrorKind {
-        case ConnectionInterrupted
-        case RequestInvalid
-        case RequestFailed
-        case RequestCancelled
-        case UnknownError
+        case connectionInterrupted
+        case requestInvalid
+        case requestFailed
+        case requestCancelled
+        case unknownError
     }
     
     public var errorKind: ErrorKind {
         let kind = sourcekitd_response_error_get_kind(response)
         switch kind {
-        case SOURCEKITD_ERROR_CONNECTION_INTERRUPTED: return .ConnectionInterrupted
-        case SOURCEKITD_ERROR_REQUEST_INVALID: return .RequestInvalid
-        case SOURCEKITD_ERROR_REQUEST_FAILED: return .RequestFailed
-        case SOURCEKITD_ERROR_REQUEST_CANCELLED: return .RequestCancelled
+        case SOURCEKITD_ERROR_CONNECTION_INTERRUPTED: return .connectionInterrupted
+        case SOURCEKITD_ERROR_REQUEST_INVALID: return .requestInvalid
+        case SOURCEKITD_ERROR_REQUEST_FAILED: return .requestFailed
+        case SOURCEKITD_ERROR_REQUEST_CANCELLED: return .requestCancelled
         default:
-            return .UnknownError
+            return .unknownError
         }
     }
 }

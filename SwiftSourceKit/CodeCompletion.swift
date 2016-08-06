@@ -6,13 +6,13 @@
 import sourcekitd
 
 extension Request {
-    public static func createCodeCompleteRequest(filename: String, sourceText: String, offset: Int, compilerArgs: [String] = []) -> Request {
+    public static func createCodeCompleteRequest(_ filename: String, sourceText: String, offset: Int, compilerArgs: [String] = []) -> Request {
         return Request(dictionary: [
-            KeyRequest: .UID(RequestCodeComplete),
-            KeyName: .Str(filename),
-            KeySourceFile: .Str(filename),
-            KeySourceText: .Str(sourceText),
-            KeyOffset: .Integer(offset),
+            KeyRequest: .uid(RequestCodeComplete),
+            KeyName: .str(filename),
+            KeySourceFile: .str(filename),
+            KeySourceText: .str(sourceText),
+            KeyOffset: .integer(offset),
             ], compilerArgs: compilerArgs)
     }
 }
@@ -54,7 +54,7 @@ public struct CompletionResult {
     }
 }
 
-public struct CompletionResultGenerator: GeneratorType {
+public struct CompletionResultGenerator: IteratorProtocol {
     private let array: sourcekitd_variant_t
     private let count: Int
     private var nextIndex = 0
@@ -76,19 +76,19 @@ public struct CompletionResultGenerator: GeneratorType {
     }
 }
 
-public enum CodeCompletionError: ErrorType {
-    case InvalidVariant
+public enum CodeCompletionError: Error {
+    case invalidVariant
 }
 
-public class CodeCompletionResults: SequenceType {
+public class CodeCompletionResults: Sequence {
     private let variant: Variant
 
     public init(variant: Variant) throws {
         self.variant = variant
-        guard case Variant.VariantType.Array = variant.type else { throw CodeCompletionError.InvalidVariant }
+        guard case Variant.VariantType.array = variant.type else { throw CodeCompletionError.invalidVariant }
     }
 
-    public func generate() -> CompletionResultGenerator {
+    public func makeIterator() -> CompletionResultGenerator {
         return CompletionResultGenerator(array: variant.variant)
     }
 }

@@ -18,17 +18,17 @@ public struct FormattingOptions {
 }
 
 extension Request {
-    public static func createEditorFormatRequestForLine(line: Int, name: String, length: Int, options: FormattingOptions) -> Request {
+    public static func createEditorFormatRequestForLine(_ line: Int, name: String, length: Int, options: FormattingOptions) -> Request {
         return Request(dictionary: [
-            KeyRequest: .UID(RequestEditorFormatText),
-            KeyName: .Str(name),
-            KeyLine: .Integer(line),
-            KeyLength: .Integer(length),
-            KeySourceText: .Str(""),
-            KeyFormatOptions: .Dictionary([
-                KeyFormatIndentWidth: .Integer(options.indentWidth),
-                KeyFormatTabWidth: .Integer(options.tabWidth),
-                KeyFormatUseTabs: .Boolean(options.useTabs)
+            KeyRequest: .uid(RequestEditorFormatText),
+            KeyName: .str(name),
+            KeyLine: .integer(line),
+            KeyLength: .integer(length),
+            KeySourceText: .str(""),
+            KeyFormatOptions: .dictionary([
+                KeyFormatIndentWidth: .integer(options.indentWidth),
+                KeyFormatTabWidth: .integer(options.tabWidth),
+                KeyFormatUseTabs: .boolean(options.useTabs)
             ])
         ])
     }

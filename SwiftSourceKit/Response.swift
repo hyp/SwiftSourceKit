@@ -17,7 +17,7 @@ public final class Response {
     }
     
     public var description: String {
-        guard let str = String.fromCString(sourcekitd_response_description_copy(response)) else {
+        guard let str = String(validatingUTF8: sourcekitd_response_description_copy(response)) else {
             return ""
         }
         return str

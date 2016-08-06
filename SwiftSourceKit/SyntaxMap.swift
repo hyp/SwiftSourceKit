@@ -13,7 +13,7 @@ public struct SyntaxToken {
     public let length: Int
 }
 
-public struct SyntaxMapGenerator: GeneratorType {
+public struct SyntaxMapGenerator: IteratorProtocol {
     private let array: sourcekitd_variant_t
     private let count: Int
     private var nextIndex = 0
@@ -34,23 +34,23 @@ public struct SyntaxMapGenerator: GeneratorType {
         let kind = sourcekitd_variant_dictionary_get_uid(value, KeyKind)
         let offset = sourcekitd_variant_dictionary_get_int64(value, KeyOffset)
         let length = sourcekitd_variant_dictionary_get_int64(value, KeyLength)
-        return SyntaxToken(kind: kind, offset: Int(offset), length: Int(length))
+        return SyntaxToken(kind: kind!, offset: Int(offset), length: Int(length))
     }
 }
 
-public enum SyntaxMapError: ErrorType {
-    case InvalidVariant
+public enum SyntaxMapError: Error {
+    case invalidVariant
 }
 
-public struct SyntaxMap: SequenceType {
+public struct SyntaxMap: Sequence {
     private let variant: Variant
     
     public init(variant: Variant) throws {
-        guard case Variant.VariantType.Array = variant.type else { throw SyntaxMapError.InvalidVariant }
+        guard case Variant.VariantType.array = variant.type else { throw SyntaxMapError.invalidVariant }
         self.variant = variant
     }
     
-    public func generate() -> SyntaxMapGenerator {
+    public func makeIterator() -> SyntaxMapGenerator {
         return SyntaxMapGenerator(array: variant.variant)
     }
 }

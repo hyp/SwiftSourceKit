@@ -6,10 +6,10 @@
 import sourcekitd
 
 extension Request {
-    public static func createDocumentInfoRequestForModule(module: String, compilerArgs: [String] = []) -> Request {
+    public static func createDocumentInfoRequestForModule(_ module: String, compilerArgs: [String] = []) -> Request {
         return Request(dictionary: [
-            KeyRequest: .UID(RequestDocInfo),
-            KeyModuleName: .Str(module),
+            KeyRequest: .uid(RequestDocInfo),
+            KeyModuleName: .str(module),
             ], compilerArgs: compilerArgs)
     }
 }

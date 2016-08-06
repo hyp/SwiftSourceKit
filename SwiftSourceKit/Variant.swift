@@ -9,24 +9,24 @@ public struct Variant {
     let variant: sourcekitd_variant_t
 
     public enum VariantType {
-        case Null
-        case Dictionary
-        case Array
-        case Integer
-        case Str
-        case UID
-        case Boolean
+        case null
+        case dictionary
+        case array
+        case integer
+        case str
+        case uid
+        case boolean
     }
 
     public var type: VariantType {
         switch sourcekitd_variant_get_type(variant) {
-        case SOURCEKITD_VARIANT_TYPE_NULL: return .Null
-        case SOURCEKITD_VARIANT_TYPE_DICTIONARY: return .Dictionary
-        case SOURCEKITD_VARIANT_TYPE_INT64: return .Integer
-        case SOURCEKITD_VARIANT_TYPE_ARRAY: return .Array
-        case SOURCEKITD_VARIANT_TYPE_STRING: return .Str
-        case SOURCEKITD_VARIANT_TYPE_UID: return .UID
-        case SOURCEKITD_VARIANT_TYPE_BOOL: return .Boolean
+        case SOURCEKITD_VARIANT_TYPE_NULL: return .null
+        case SOURCEKITD_VARIANT_TYPE_DICTIONARY: return .dictionary
+        case SOURCEKITD_VARIANT_TYPE_INT64: return .integer
+        case SOURCEKITD_VARIANT_TYPE_ARRAY: return .array
+        case SOURCEKITD_VARIANT_TYPE_STRING: return .str
+        case SOURCEKITD_VARIANT_TYPE_UID: return .uid
+        case SOURCEKITD_VARIANT_TYPE_BOOL: return .boolean
         default:
             fatalError("Invalid sourcekitd variant type")
         }
@@ -53,7 +53,7 @@ public struct Variant {
     }
 
     public subscript(StringForKey key: sourcekitd_uid_t) -> String {
-        guard let str = String.fromCString(sourcekitd_variant_dictionary_get_string(variant, key)) else {
+        guard let cString = sourcekitd_variant_dictionary_get_string(variant, key), let str = String(validatingUTF8: cString) else {
             return ""
         }
         return str
@@ -64,7 +64,7 @@ public struct Variant {
     }
     
     public var description: String {
-        guard let str = String.fromCString(sourcekitd_variant_description_copy(variant)) else {
+        guard let str = String(validatingUTF8: sourcekitd_variant_description_copy(variant)) else {
             return ""
         }
         return str

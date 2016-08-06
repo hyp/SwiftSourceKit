@@ -8,15 +8,15 @@ import sourcekitd
 // Represents a diagnostic.
 public struct Diagnostic {
     public enum Kind {
-        case Error
-        case Warning
-        case Note
-        case Other
+        case error
+        case warning
+        case note
+        case other
     }
     public enum StageKind {
-        case Parse
-        case Sema
-        case Other
+        case parse
+        case sema
+        case other
     }
     private let variant: Variant
 
@@ -65,7 +65,7 @@ public struct DiagnosticFixit {
     public let sourceText: String
 }
 
-public struct DiagnosticGenerator: GeneratorType {
+public struct DiagnosticGenerator: IteratorProtocol {
     private let array: sourcekitd_variant_t
     private let count: Int
     private var nextIndex = 0
@@ -87,38 +87,38 @@ public struct DiagnosticGenerator: GeneratorType {
     }
 }
 
-public enum DiagnosticsError: ErrorType {
-    case InvalidVariant
+public enum DiagnosticsError: Error {
+    case invalidVariant
 }
 
-public class Diagnostics: SequenceType {
+public class Diagnostics: Sequence {
     private let variant: Variant
 
     public init(variant: Variant) throws {
         self.variant = variant
-        guard case Variant.VariantType.Array = variant.type else { throw DiagnosticsError.InvalidVariant }
+        guard case Variant.VariantType.array = variant.type else { throw DiagnosticsError.invalidVariant }
     }
 
-    public func generate() -> DiagnosticGenerator {
+    public func makeIterator() -> DiagnosticGenerator {
         return DiagnosticGenerator(array: variant.variant)
     }
 }
 
-private func getDiagnosticKind(kind: sourcekitd_uid_t) -> Diagnostic.Kind {
+private func getDiagnosticKind(_ kind: sourcekitd_uid_t) -> Diagnostic.Kind {
     switch kind {
-    case SourceDiagnosticSeverityError: return .Error
-    case SourceDiagnosticSeverityWarning: return .Warning
-    case SourceDiagnosticSeverityNote: return .Note
+    case SourceDiagnosticSeverityError: return .error
+    case SourceDiagnosticSeverityWarning: return .warning
+    case SourceDiagnosticSeverityNote: return .note
     default:
-        return .Other
+        return .other
     }
 }
 
-private func getDiagnosticStageKind(kind: sourcekitd_uid_t) -> Diagnostic.StageKind {
+private func getDiagnosticStageKind(_ kind: sourcekitd_uid_t) -> Diagnostic.StageKind {
     switch kind {
-    case SourceDiagnosticStageSwiftParse: return .Parse
-    case SourceDiagnosticStageSwiftSema: return .Sema
+    case SourceDiagnosticStageSwiftParse: return .parse
+    case SourceDiagnosticStageSwiftSema: return .sema
     default:
-        return .Other
+        return .other
     }
 }

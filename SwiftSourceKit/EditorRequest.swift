@@ -6,39 +6,39 @@
 import sourcekitd
 
 extension Request {
-    public static func createEditorOpenRequest(filename: String, sourceText: String, enableSyntaxMap: Bool = true, enableSubStructure: Bool = false, compilerArgs: [String] = []) -> Request {
+    public static func createEditorOpenRequest(_ filename: String, sourceText: String, enableSyntaxMap: Bool = true, enableSubStructure: Bool = false, compilerArgs: [String] = []) -> Request {
         return Request(dictionary: [
-            KeyRequest: .UID(RequestEditorOpen),
-            KeyName: .Str(filename),
-            KeySourceText: .Str(sourceText),
-            KeyEnableSyntaxMap: .Boolean(enableSyntaxMap),
-            KeyEnableSubStructure: .Boolean(enableSubStructure),
+            KeyRequest: .uid(RequestEditorOpen),
+            KeyName: .str(filename),
+            KeySourceText: .str(sourceText),
+            KeyEnableSyntaxMap: .boolean(enableSyntaxMap),
+            KeyEnableSubStructure: .boolean(enableSubStructure),
             ], compilerArgs: compilerArgs)
     }
 
-    public static func createEditorCloseRequest(filename: String) -> Request {
+    public static func createEditorCloseRequest(_ filename: String) -> Request {
         return Request(dictionary: [
-            KeyRequest: .UID(RequestEditorClose),
-            KeyName: .Str(filename),
-            KeySourceText: .Str(""),
+            KeyRequest: .uid(RequestEditorClose),
+            KeyName: .str(filename),
+            KeySourceText: .str(""),
         ])
     }
 
-    public static func createEditorReplaceTextRequest(name: String, offset: Int, length: Int, sourceText: String) -> Request {
+    public static func createEditorReplaceTextRequest(_ name: String, offset: Int, length: Int, sourceText: String) -> Request {
         return Request(dictionary: [
-            KeyRequest: .UID(RequestEditorReplaceText),
-            KeyName: .Str(name),
-            KeyOffset: .Integer(offset),
-            KeyLength: .Integer(length),
-            KeySourceText: .Str(sourceText),
+            KeyRequest: .uid(RequestEditorReplaceText),
+            KeyName: .str(name),
+            KeyOffset: .integer(offset),
+            KeyLength: .integer(length),
+            KeySourceText: .str(sourceText),
         ])
     }
 
-    public static func createCursorInfoRequestForFile(filename: String, offset: Int, compilerArgs: [String] = []) -> Request {
+    public static func createCursorInfoRequestForFile(_ filename: String, offset: Int, compilerArgs: [String] = []) -> Request {
         return Request(dictionary: [
-            KeyRequest: .UID(RequestCursorInfo),
-            KeySourceFile: .Str(filename),
-            KeyOffset: .Integer(offset)
+            KeyRequest: .uid(RequestCursorInfo),
+            KeySourceFile: .str(filename),
+            KeyOffset: .integer(offset)
         ], compilerArgs: compilerArgs)
     }
 }

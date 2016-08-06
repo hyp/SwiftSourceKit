@@ -7,7 +7,7 @@ import sourcekitd
 
 public struct CursorInfo {
     public typealias KindUID = sourcekitd_uid_t
-    public let kind: KindUID
+    public let kind: KindUID?
     public let name: String
     public let usr: String
     public let filePath: String
@@ -18,7 +18,7 @@ public struct CursorInfo {
     public let modulename: String
 
     public init?(variant: Variant) {
-        guard case Variant.VariantType.Dictionary = variant.type else { return nil }
+        guard case Variant.VariantType.dictionary = variant.type else { return nil }
         kind = variant[UIDForKey: KeyKind]
         guard kind != nil else { return nil }
         name = variant[StringForKey: KeyName]
