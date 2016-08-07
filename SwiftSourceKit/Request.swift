@@ -74,11 +74,13 @@ public final class Request {
     }
     
     public func sendAndWaitForResponse() throws -> Response {
-        let response = sourcekitd_send_request_sync(request)
-        if sourcekitd_response_is_error(response!) {
-            throw ResponseError(response: response!) as! Error
+        guard let response = sourcekitd_send_request_sync(request) else {
+            fatalError("No response received")
         }
-        return Response(response: response!)
+        if sourcekitd_response_is_error(response) {
+            throw ResponseError(response: response)
+        }
+        return Response(response: response)
     }
 
     public func send(_ errorCallback: (ResponseError) -> (), responseCallback: (Response) -> ()) {
