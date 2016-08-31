@@ -8,7 +8,7 @@ import sourcekitd
 /// An entry in the Entity.conforms array.
 public struct EntityConformsEntry {
     private let variant: Variant
-    private init(value: sourcekitd_variant_t) {
+    fileprivate init(value: sourcekitd_variant_t) {
         variant = Variant(dictionary: value)
     }
 
@@ -30,7 +30,7 @@ public struct EntityConformsEntry {
 /// Its lifetime is tied to the Response object that it came from.
 public struct Entity {
     private let variant: Variant
-    private init(value: sourcekitd_variant_t) {
+    fileprivate init(value: sourcekitd_variant_t) {
         variant = Variant(dictionary: value)
     }
 
@@ -107,7 +107,7 @@ public struct Entity {
 /// Its lifetime is tied to the Response object that it came from.
 public struct EntityExtensionInfo {
     private let variant: Variant
-    private init(value: sourcekitd_variant_t) {
+    fileprivate init(value: sourcekitd_variant_t) {
         variant = Variant(dictionary: value)
     }
 
@@ -145,7 +145,7 @@ public struct EntityGenerator: IteratorProtocol {
     private let count: Int
     private var nextIndex = 0
 
-    private init(array: sourcekitd_variant_t) {
+    fileprivate init(array: sourcekitd_variant_t) {
         self.array = array
         assert(sourcekitd_variant_get_type(array) == SOURCEKITD_VARIANT_TYPE_ARRAY)
         count = sourcekitd_variant_array_get_count(array)

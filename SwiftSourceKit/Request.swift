@@ -15,7 +15,7 @@ public enum RequestValue {
 }
 
 extension RequestValue {
-    private var sourcekitObject: sourcekitd_object_t {
+    fileprivate var sourcekitObject: sourcekitd_object_t {
         switch self {
         case .uid(let value): return sourcekitd_request_uid_create(value)
         case .str(let value):
@@ -83,7 +83,7 @@ public final class Request {
         return Response(response: response)
     }
 
-    public func send(_ errorCallback: (ResponseError) -> (), responseCallback: (Response) -> ()) {
+    public func send(_ errorCallback: @escaping (ResponseError) -> (), responseCallback: @escaping(Response) -> ()) {
         sourcekitd_send_request(request, nil) {
             (response) in
             if sourcekitd_response_is_error(response!) {

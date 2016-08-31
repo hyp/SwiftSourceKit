@@ -20,7 +20,7 @@ public struct Diagnostic {
     }
     private let variant: Variant
 
-    private init(value: sourcekitd_variant_t) {
+    fileprivate init(value: sourcekitd_variant_t) {
         variant = Variant(dictionary: value)
     }
 

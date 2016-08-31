@@ -3,27 +3,27 @@
 
 import Foundation
 
-if Process.arguments.count < 3 {
+if CommandLine.arguments.count < 3 {
     fatalError("No arguments given")
 }
 
 let dict = ProcessInfo.processInfo.environment
-let srcRoot = Process.arguments[1]
-let builtProductsDir = Process.arguments[2]
+let srcRoot = CommandLine.arguments[1]
+let builtProductsDir = CommandLine.arguments[2]
 
 var moduleFiles = ["libswiftCore.dylib", "libswiftSwiftPrivate.dylib", "libswiftSwiftPrivateLibcExtras.dylib", "libswiftSwiftPrivatePthreadExtras.dylib", "Swift.swiftdoc", "Swift.swiftmodule", "SwiftPrivate.swiftdoc", "SwiftPrivate.swiftmodule", "SwiftPrivateLibcExtras.swiftdoc", "SwiftPrivateLibcExtras.swiftmodule", "SwiftPrivatePthreadExtras.swiftdoc", "SwiftPrivatePthreadExtras.swiftmodule"]
 let paths = [(from: "swift/shims", to: "swift"), (from: "swift/clang", to: "swift")]
 
 // Parse additional parameters
 var i = 3
-while i < Process.arguments.count {
-    switch Process.arguments[i] {
+while i < CommandLine.arguments.count {
+    switch CommandLine.arguments[i] {
     case "-file":
         i += 1
-        if i >= Process.arguments.count {
+        if i >= CommandLine.arguments.count {
             fatalError("Expected an argument after '-file'")
         }
-        moduleFiles.append(Process.arguments[i])
+        moduleFiles.append(CommandLine.arguments[i])
     case let arg:
         fatalError("Unknown argument '\(arg)'")
     }
@@ -33,7 +33,7 @@ while i < Process.arguments.count {
 let files = moduleFiles.map { "swift/macosx/x86_64/" + $0 }
 
 func copy(from: String, to: String) {
-    let task = Task()
+    let task = Process()
     task.launchPath = "/bin/cp"
     task.arguments = ["-r", from, to]
     task.launch()
@@ -44,7 +44,7 @@ func copy(from: String, to: String) {
 }
 
 func mkdir(_ path: String) {
-    let task = Task()
+    let task = Process()
     task.launchPath = "/bin/mkdir"
     task.arguments = ["-p", path]
     task.launch()

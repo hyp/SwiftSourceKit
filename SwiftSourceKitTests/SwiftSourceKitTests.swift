@@ -187,7 +187,7 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
     }
 
     func testCursorInfo() {
-        let filename = Bundle(for: self.dynamicType).path(forResource: "test", ofType: "swift")!
+        let filename = Bundle(for: type(of: self)).path(forResource: "test", ofType: "swift")!
 
         do {
             let request = Request.createCursorInfoRequestForFile(filename, offset: 9, compilerArgs: [filename])

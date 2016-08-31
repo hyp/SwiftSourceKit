@@ -27,7 +27,7 @@ public struct CompletionResult {
     private let variant: Variant
     public typealias KindUID = sourcekitd_uid_t
 
-    private init(value: sourcekitd_variant_t) {
+    fileprivate init(value: sourcekitd_variant_t) {
         variant = Variant(dictionary: value)
     }
 
