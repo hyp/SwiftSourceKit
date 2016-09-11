@@ -11,7 +11,7 @@ let dict = ProcessInfo.processInfo.environment
 let srcRoot = CommandLine.arguments[1]
 let builtProductsDir = CommandLine.arguments[2]
 
-var moduleFiles = ["libswiftCore.dylib", "libswiftSwiftPrivate.dylib", "libswiftSwiftPrivateLibcExtras.dylib", "libswiftSwiftPrivatePthreadExtras.dylib", "Swift.swiftdoc", "Swift.swiftmodule", "SwiftPrivate.swiftdoc", "SwiftPrivate.swiftmodule", "SwiftPrivateLibcExtras.swiftdoc", "SwiftPrivateLibcExtras.swiftmodule", "SwiftPrivatePthreadExtras.swiftdoc", "SwiftPrivatePthreadExtras.swiftmodule"]
+var moduleFiles = ["libswiftCore.dylib", "libswiftSwiftPrivate.dylib", "libswiftSwiftPrivateLibcExtras.dylib", "libswiftSwiftPrivatePthreadExtras.dylib", "Swift.swiftdoc", "Swift.swiftmodule", "SwiftPrivate.swiftdoc", "SwiftPrivate.swiftmodule", "SwiftPrivateLibcExtras.swiftdoc", "SwiftPrivateLibcExtras.swiftmodule", "SwiftPrivatePthreadExtras.swiftdoc", "SwiftPrivatePthreadExtras.swiftmodule", "SwiftOnoneSupport.swiftdoc", "SwiftOnoneSupport.swiftmodule", "libswiftSwiftOnoneSupport.dylib"]
 let paths = [(from: "swift/shims", to: "swift"), (from: "swift/clang", to: "swift")]
 
 // Parse additional parameters
