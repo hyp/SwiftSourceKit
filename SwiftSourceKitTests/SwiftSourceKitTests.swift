@@ -160,7 +160,7 @@ class SwiftSourceKitTests: XCTestCase, SourceKitDelegate {
             let codeCompletionRequest = Request.createCodeCompleteRequest("codeComplete.swift", sourceText: sourceText, offset: 4, compilerArgs: [ "codeComplete.swift" ])
             let response = try codeCompletionRequest.sendAndWaitForResponse()
             let results = Array(try CodeCompletionResults(variant: response.results))
-            XCTAssertEqual(results.count, 49)
+            XCTAssertEqual(results.count, 51)
             struct ExpectedCompletion {
                 let kind: CompletionResult.KindUID
                 let name: String
